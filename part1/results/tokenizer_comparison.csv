@@ -1,0 +1,5 @@
+method,reviews,surface_tokens,surface_types,normalized_tokens,normalized_types,singleton_types
+custom,37401,4243374,49849,3783589,38120,14964
+whitespace,37401,3728711,120284,3760186,103566,58835
+wordpunct,37401,4346210,48574,3806763,36361,13892
+custom_no_expand,37401,4243374,49849,3738918,38169,14972
