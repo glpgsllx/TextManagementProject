@@ -27,15 +27,12 @@ class Tokenizer:
 
     name: str
     _surface_tokenizer: Callable[[str], list[str]] = field(repr=False)
-    expand_contractions: bool = True
 
     def surface_tokens(self, text: str) -> list[str]:
         return self._surface_tokenizer(prepare_text(text))
 
     def tokenize(self, text: str) -> list[str]:
-        return normalize_tokens(
-            self.surface_tokens(text), expand=self.expand_contractions
-        )
+        return normalize_tokens(self.surface_tokens(text))
 
 
 def available_tokenizers() -> tuple[str, ...]:
@@ -43,21 +40,19 @@ def available_tokenizers() -> tuple[str, ...]:
     return tuple(_SURFACE_TOKENIZERS)
 
 
-@lru_cache(maxsize=6)
-def get_tokenizer(
-    name: str = "custom", *, expand_contractions: bool = True
-) -> Tokenizer:
+@lru_cache(maxsize=3)
+def get_tokenizer(name: str = "custom") -> Tokenizer:
     """Select a boundary method; instances are immutable and safe to reuse."""
     if name not in _SURFACE_TOKENIZERS:
         raise ValueError(
             f"Unknown tokenizer {name!r}; choose from {available_tokenizers()}"
         )
-    return Tokenizer(name, _SURFACE_TOKENIZERS[name], expand_contractions)
+    return Tokenizer(name, _SURFACE_TOKENIZERS[name])
 
 
-def tokenize(text: str, *, expand_contractions: bool = True) -> list[str]:
+def tokenize(text: str) -> list[str]:
     """Default custom tokenizer, shared by statistics and search teammates."""
-    return get_tokenizer(expand_contractions=expand_contractions).tokenize(text)
+    return get_tokenizer().tokenize(text)
 
 
 def surface_tokens(text: str) -> list[str]:

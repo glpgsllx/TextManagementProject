@@ -35,12 +35,11 @@ class SharedTokenizerTests(unittest.TestCase):
         self.assertEqual(get_tokenizer().surface_tokens(text), expected)
         self.assertEqual(tokenize(text), ["do", "not", "the", "best", "food", "😊"])
 
-    def test_expansion_setting_applies_to_factory_and_convenience_function(self):
-        text = "DON’T go"
-        expected = ["don't", "go"]
-        self.assertEqual(get_tokenizer(expand_contractions=False).tokenize(text), expected)
-        self.assertEqual(tokenize(text, expand_contractions=False), expected)
-        self.assertEqual(get_tokenizer().tokenize(text), ["do", "not", "go"])
+    def test_normalization_combines_case_apostrophes_and_contractions(self):
+        text = "DON’T eat CAFÉ food! 😊"
+        expected = ["do", "not", "eat", "café", "food", "😊"]
+        self.assertEqual(get_tokenizer().tokenize(text), expected)
+        self.assertEqual(tokenize(text), expected)
 
     def test_methods_share_unicode_and_case_normalization(self):
         for name in available_tokenizers():

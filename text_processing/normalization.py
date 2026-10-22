@@ -50,7 +50,7 @@ def expand_word(word: str) -> tuple[str, ...]:
 
 
 @lru_cache(maxsize=200_000)
-def normalize_token(token: str, expand: bool = True) -> tuple[str, ...]:
+def normalize_token(token: str) -> tuple[str, ...]:
     """Apply identical postprocessing to each tokenizer's complete tokens.
 
     Keep tokens containing letters/numbers and complete emoji/emoticons.
@@ -64,10 +64,10 @@ def normalize_token(token: str, expand: bool = True) -> tuple[str, ...]:
     token = token.lower()
     if not HAS_LETTER_OR_NUMBER.search(token):
         return ()
-    if expand and WORD_PATTERN.fullmatch(token):
+    if WORD_PATTERN.fullmatch(token):
         return expand_word(token)
     return (token,)
 
 
-def normalize_tokens(tokens: list[str], *, expand: bool = True) -> list[str]:
-    return [term for token in tokens for term in normalize_token(token, expand)]
+def normalize_tokens(tokens: list[str]) -> list[str]:
+    return [term for token in tokens for term in normalize_token(token)]

@@ -31,9 +31,9 @@ print(terms)
 
 `custom` 是自写正则分词器，也可以换成 `whitespace` 或 `wordpunct`。
 
-需要做归一化时，调用 `tokenizer.tokenize(text)`；查看原始分词边界时，调用 `tokenizer.surface_tokens(text)`。缩写展开默认开启，可以通过 `get_tokenizer("custom", expand_contractions=False)` 单独关闭。
+需要做归一化时，调用 `tokenizer.tokenize(text)`；查看原始分词边界时，调用 `tokenizer.surface_tokens(text)`。归一化包括 Unicode 等价写法和撇号统一、小写转换、明确缩写的展开及纯标点过滤。
 
-做搜索时，评论和查询要用同一种分词器、同一套设置；换设置后需要重新建索引。做情感分析时，可以直接读取原始评论，保留标点和大小写。
+做搜索时，评论和查询要用同一种分词器；换方法后需要重新建索引。做情感分析时，可以直接读取原始评论，保留标点和大小写。
 
 ## 文件放在哪里
 

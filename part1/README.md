@@ -32,7 +32,7 @@ surface_tokens:   ["I", "don't", "like", "the", "best", "food", "😊", "!"]
 normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 ```
 
-需要做归一化时，使用 `normalized_terms`；查看原始分词边界时，使用 `surface_tokens`。命令行加 `--tokenizer whitespace` 或 `--tokenizer wordpunct` 可以换方法；缩写展开默认开启，加 `--keep-contractions` 可单独关闭。
+需要做归一化时，使用 `normalized_terms`；查看原始分词边界时，使用 `surface_tokens`。命令行加 `--tokenizer whitespace` 或 `--tokenizer wordpunct` 可以换方法。
 
 自写规则会保留完整 emoji、ASCII 表情和小数，拆开连字符。归一化时统一 Unicode 等价写法和撇号，把普通词转成小写，再展开明确的缩写。`she's`、`I'd` 这类有歧义的形式保留。停用词也保留，不做词干提取或词形还原。代码在 `text_processing/`，其他组员可以直接复用。
 
@@ -42,7 +42,7 @@ normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 
 - `zipf`：词频与排名的双对数图。
 - `heaps`：词表随文本量增长的曲线。
-- `tokenizer_comparison`：不同分词设置的词表大小。
+- `tokenizer_comparison`：三种分词器的词表大小。
 
 对应的表格是：
 

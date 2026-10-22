@@ -24,7 +24,7 @@ from .boundary_cases import CASES
 
 
 ROOT = Path(__file__).resolve().parents[1]
-NAMES = ("custom", "whitespace", "wordpunct", "custom_no_expand")
+NAMES = ("custom", "whitespace", "wordpunct")
 
 
 def dump_json(path, data):
@@ -117,8 +117,7 @@ def build_examples(documents, tokenizers):
 
 
 def analyze(documents):
-    tokenizers = {name: get_tokenizer(name) for name in ("custom", "whitespace", "wordpunct")}
-    tokenizers["custom_no_expand"] = get_tokenizer("custom", expand_contractions=False)
+    tokenizers = {name: get_tokenizer(name) for name in NAMES}
     raw_counts = {name: Counter() for name in NAMES}
     frequencies = {name: Counter() for name in NAMES}
     token_counts, document_types = [], []
@@ -246,8 +245,7 @@ def main():
                    "normalization": "NFC, normalize apostrophes, lowercase lexical terms, expand clear contractions; retain numbers/emoji/emoticons; drop other punctuation-only tokens",
                    "stopwords": "retained", "stemming": False, "lemmatization": False,
                    "ambiguous_forms": "preserve 's, 'd and ain't; no POS/sense guessing",
-                   "baseline_fairness": "Same reviews, NFC and normalize_tokens function. Expansion requires a complete recognized word token.",
-                   "custom_no_expand": "Same custom boundaries and normalization, but contraction expansion disabled"},
+                   "baseline_fairness": "Same reviews, NFC and normalize_tokens function. Expansion requires a complete recognized word token."},
         "tokenizers": comparison, "zipf": zipf, "heaps": heaps,
         "heaps_seed_sensitivity": {"seeds": [r["seed"] for r in seed_results],
                                    "beta_min": min(r["beta"] for r in seed_results),

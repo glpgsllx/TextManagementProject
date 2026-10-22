@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 import numpy as np
 
-COLORS = {"custom": "#245D9E", "whitespace": "#B56C22", "wordpunct": "#4F8C60", "custom_no_expand": "#825AA8"}
+COLORS = {"custom": "#245D9E", "whitespace": "#B56C22", "wordpunct": "#4F8C60"}
 
 
 def save_figure(fig, output, stem):
