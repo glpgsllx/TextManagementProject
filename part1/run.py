@@ -183,13 +183,16 @@ def main():
     args = parser.parse_args()
     output = args.output_dir
     output.mkdir(parents=True, exist_ok=True)
+    # Detailed working files stay local; results/ contains report-ready outputs.
+    details = ROOT / "part1/.cache/run"
+    details.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     documents, corpus = load_corpus(args.input_dir)
     print(f"Verified {corpus['businesses']:,} businesses and {corpus['reviews']:,} reviews", flush=True)
     frequencies, comparison, token_counts, document_types, coverage, examples = analyze(documents)
     for method, frequency in frequencies.items():
         ranked = sorted(frequency.items(), key=lambda item: (-item[1], item[0]))
-        write_csv(output / f"term_frequencies_{method}.csv",
+        write_csv(details / f"term_frequencies_{method}.csv",
                   ({"rank": rank, "term": term, "frequency": count} for rank, (term, count) in enumerate(ranked, 1)),
                   ["rank", "term", "frequency"])
     _, zipf = zipf_statistics(frequencies["custom"])
@@ -216,10 +219,27 @@ def main():
     if not all(item.get("custom_passed", True) for item in examples):
         raise AssertionError("A synthetic tokenizer boundary case failed")
     write_csv(output / "tokenizer_comparison.csv", comparison, list(comparison[0]))
-    write_csv(output / "heaps_samples.csv", all_points, list(points[0]))
-    write_csv(output / "heaps_parameters.csv", seed_results, list(seed_results[0]))
-    dump_json(output / "tokenization_examples.json", examples)
-    dump_json(output / "sampling_manifest.json", {"method": "sort by SHA256(seed + NUL + review_id), then review_id; nested prefixes; ceil(review_count*fraction)", "seeds": sampling})
+    write_csv(output / "heaps_samples.csv", [p for p in points if p["required_checkpoint"]], list(points[0]))
+    law_parameters = [
+        {"law": "Zipf", "coefficient": zipf["primary_fit"]["coefficient"],
+         "exponent": zipf["primary_fit"]["exponent_s"], "r2_log10": zipf["primary_fit"]["r2_log10"],
+         "fit_scope": "ranks 10-10000; frequency >= 2"},
+        {"law": "Heaps", "coefficient": heaps["four_checkpoint_fit"]["k"],
+         "exponent": heaps["four_checkpoint_fit"]["beta"], "r2_log10": heaps["four_checkpoint_fit"]["r2_log10"],
+         "fit_scope": "10%, 30%, 50%, 100% reviews; N is normalized tokens"},
+    ]
+    write_csv(output / "law_parameters.csv", law_parameters, list(law_parameters[0]))
+    report_examples = []
+    for item in examples:
+        if item["source"] == "real_corpus_excerpt" or item["feature"] in ("required_noise", "zwj_skin_flag_keycap"):
+            report_examples.append({"source": item["source"], "feature": item["feature"], "text": item["text"],
+                                    **{name: json.dumps(terms, ensure_ascii=False)
+                                       for name, terms in item["normalized_terms"].items()}})
+    write_csv(output / "tokenization_examples.csv", report_examples, list(report_examples[0]))
+    write_csv(details / "heaps_samples.csv", all_points, list(points[0]))
+    write_csv(details / "heaps_parameters.csv", seed_results, list(seed_results[0]))
+    dump_json(details / "tokenization_examples.json", examples)
+    dump_json(details / "sampling_manifest.json", {"method": "sort by SHA256(seed + NUL + review_id), then review_id; nested prefixes; ceil(review_count*fraction)", "seeds": sampling})
     summary = {
         "corpus": corpus,
         "policy": {"surface_stage": "NFC, ordered regex; retain punctuation, discard dash delimiters",
@@ -245,8 +265,8 @@ def main():
                        "normalization_slides": "../slides/Lecture2-Text Normalization.pdf pp.4,11-13",
                        "laws_slides": "../slides/Lecture8-Index.pdf pp.21-26"},
     }
-    dump_json(output / "summary.json", summary)
-    dump_json(output / "regex_rules.json", [{"priority": i, "kind": name, "pattern": pattern} for i, (name, pattern) in enumerate(RULES, 1)])
+    dump_json(details / "summary.json", summary)
+    dump_json(details / "regex_rules.json", [{"priority": i, "kind": name, "pattern": pattern} for i, (name, pattern) in enumerate(RULES, 1)])
     make_figures(output, frequencies, comparison, zipf, points, heaps)
     print(json.dumps({"output": str(output.relative_to(ROOT)) if output.is_relative_to(ROOT) else str(output),
                       "tokenizers": comparison, "zipf": zipf["primary_fit"],
