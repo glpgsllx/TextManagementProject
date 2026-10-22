@@ -1,0 +1,23 @@
+{
+  "city": "Meridian",
+  "state": "ID",
+  "format": "UTF-8 JSON Lines: one original JSON object per line",
+  "filter": {
+    "city": "city.strip().casefold() == requested_city.strip().casefold()",
+    "state": "state.strip().upper() == requested_state.strip().upper()",
+    "review": "business_id belongs to the selected business set",
+    "additional_category_year_language_open_status_filters": null
+  },
+  "files": {
+    "business.json": {
+      "records": 1045,
+      "bytes": 806415,
+      "sha256": "2ec62a32fb767719836cce2eba318e5d2b802b052782043ddb8f8d670fce3d21"
+    },
+    "review.json": {
+      "records": 37401,
+      "bytes": 27419987,
+      "sha256": "e6588358fc7398dc42fa45bc2504b31785d892f8720770bd580faf7899d8f32f"
+    }
+  }
+}

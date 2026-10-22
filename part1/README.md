@@ -1,78 +1,66 @@
-# Part 1 — Dataset Analysis & Custom Tokenization
+# Part 1：数据统计和正则分词器
 
-从仓库根目录运行。共享数据准备和公共分词接口见[总 README](../README.md)。
+这部分做词频统计、Zipf 和 Heaps 拟合，并比较自写正则、Whitespace、WordPunct 三种分词器。数据直接读取仓库里的 `data/meridian_id/`。
 
-## 安装和运行
+## 怎么运行
 
-使用 Python 3.11，并激活虚拟环境：
+先按[总 README](../README.md) 建好 Python 3.11 环境，然后在仓库根目录执行：
 
 ```bash
 python -m pip install -r part1/requirements.txt
 python -m part1.run
 ```
 
-输入为 `data/meridian_id/business.json`、`review.json` 与提取脚本生成的 `manifest.json`。两个数据文件均为 UTF-8 JSON Lines，每行一个 JSON 对象。
-
-可选参数：
+运行后，图表和结果表会写到 `part1/results/`。需要换路径或采样种子时，可以这样写：
 
 ```bash
 python -m part1.run --input-dir data/meridian_id --output-dir part1/results --seed 42
 ```
 
-`--input-dir` 指向 Meridian 子集；`--output-dir` 指定最终输出目录；`--seed` 控制可复现的嵌套采样顺序，默认 42。Heaps 的 N 使用实际累计 token 数。
+默认种子是 42。Heaps 按评论数取 10%、30%、50%、100% 的嵌套样本，公式中的 N 使用实际累计词数。
 
-## 分词器示例
+## 看一条文本怎么分词
 
 ```bash
 python -m part1 --text "I don't like the-best-food 😊!"
-python -m part1 --tokenizer wordpunct --text "Don't go!"
-python -m part1 --keep-contractions --text "Don't go!"
 ```
 
-第一条命令输出：
+输出有两组：
 
-```json
-{
-  "surface_tokens": ["I", "don't", "like", "the", "best", "food", "😊", "!"],
-  "normalized_terms": ["i", "do", "not", "like", "the", "best", "food", "😊"]
-}
+```text
+surface_tokens:   ["I", "don't", "like", "the", "best", "food", "😊", "!"]
+normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 ```
 
-`surface_tokens` 展示分词边界；`normalized_terms` 是归一化后的术语。三种方法共用 NFC、撇号统一、小写和明确缩写展开规则；自写正则保留完整 emoji、ASCII 表情和数字，拆开连字符。保留歧义缩写与停用词，不做词干提取或词形还原。
+第一组展示分词边界，第二组是用来统计和检索的词。命令行加 `--tokenizer whitespace` 或 `--tokenizer wordpunct` 可以换方法；加 `--keep-contractions` 可以保留缩写。
 
-## 最终输出
+自写规则会保留完整 emoji、ASCII 表情和小数，拆开连字符。归一化时统一 Unicode 等价写法和撇号，把普通词转成小写，再展开明确的缩写。`she's`、`I'd` 这类有歧义的形式保留。停用词也保留，不做词干提取或词形还原。代码在 `text_processing/`，其他组员可以直接复用。
 
-`results/` 仅保存报告使用的图表和结果表：
+## 结果在哪里
 
-| 文件 | 内容 |
+`results/` 中有三张图，每张都提供 PNG 和 SVG：
+
+- `zipf`：词频与排名的双对数图。
+- `heaps`：词表随文本量增长的曲线。
+- `tokenizer_comparison`：不同分词设置的词表大小。
+
+对应的表格是：
+
+| 文件 | 看什么 |
 | --- | --- |
-| `zipf.png` / `zipf.svg` | 词频—排名双对数图与拟合 |
-| `heaps.png` / `heaps.svg` | 词表增长图与拟合 |
-| `tokenizer_comparison.png` / `tokenizer_comparison.svg` | 不同分词配置的词表大小 |
-| `tokenizer_comparison.csv` | token、type 与单次出现词数量 |
-| `heaps_samples.csv` | 主种子的 10%、30%、50%、100% 采样结果 |
-| `law_parameters.csv` | 两个定律的参数、拟合范围与 log-log R² |
-| `tokenization_examples.csv` | 三种分词器的实际输出对比；标明真实或合成来源 |
+| `tokenizer_comparison.csv` | 各方法的总词数、不同词数和只出现一次的词数 |
+| `heaps_samples.csv` | 四个样本规模的实际词数和词表大小 |
+| `law_parameters.csv` | Zipf、Heaps 的拟合参数、范围和 log-log R² |
+| `tokenization_examples.csv` | 同一段文字经过三种分词器后的结果 |
 
-合成案例仅用于展示和测试，不参与语料统计。运行过程的完整词频及复现信息保存在本地 `.cache/`，不提交 Git。
+Zipf 使用 `f(r) = C × r^(-s)`，表中的 coefficient、exponent 分别是 C、s；Heaps 使用 `V = k × N^β`，对应 k、β。示例表会注明文字来自真实评论还是合成案例，合成案例不参与词频和词表统计。
 
-## 代码与测试
-
-- `run.py`：读取语料、计数、输出实验结果。
-- `statistics.py`：嵌套采样与 log-log 最小二乘拟合。
-- `plots.py`：绘图。
-- `boundary_cases.py`、`tests/`：边界案例与统计测试。
-- `../text_processing/`：团队共用的分词实现与接口。
+## 测试和依赖
 
 ```bash
 python -m unittest discover -s part1/tests -v
 ```
 
-## 第三方库
+分词用到 [regex](https://github.com/mrabarnett/mrab-regex) 和 [NLTK](https://www.nltk.org/api/nltk.tokenize.regexp.html)，拟合用 [NumPy](https://numpy.org/)，画图用 [Matplotlib](https://matplotlib.org/)。版本写在两个 `requirements.txt` 中，不需要下载 NLTK 模型。
 
-- [regex](https://github.com/mrabarnett/mrab-regex)：Unicode 属性匹配，自写分词规则使用。
-- [NLTK](https://www.nltk.org/api/nltk.tokenize.regexp.html)：Whitespace、WordPunct 基线。
-- [NumPy](https://numpy.org/)：数值拟合。
-- [Matplotlib](https://matplotlib.org/)：绘图。
-
-依赖版本见本目录与根目录的 `requirements.txt`，无需下载 NLTK 模型。分词规则采用有序正则的组织方式，可对照 [NLTK TweetTokenizer](https://www.nltk.org/_modules/nltk/tokenize/casual.html)；本项目未调用它。
+有序正则的组织方式参考了 [NLTK TweetTokenizer](https://www.nltk.org/_modules/nltk/tokenize/casual.html)，自写分词器使用自己的边界规则，没有调用 TweetTokenizer。

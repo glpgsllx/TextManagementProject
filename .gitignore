@@ -7,5 +7,10 @@ __pycache__/
 /yelp-dataset/
 /tmp/
 /output/
-/data/
+/data/*
+!/data/meridian_id/
+/data/meridian_id/*
+!/data/meridian_id/business.json
+!/data/meridian_id/review.json
+!/data/meridian_id/manifest.json
 /GroupAssignment-202609.pdf
