@@ -29,9 +29,9 @@ print(terms)
 # ['i', 'do', 'not', 'like', 'the', 'best', 'food', '😊']
 ```
 
-`custom` 是自写正则分词器，也可以换成 `whitespace` 或 `wordpunct`。需要保留缩写时，用 `get_tokenizer("custom", expand_contractions=False)`。
+`custom` 是自写正则分词器，也可以换成 `whitespace` 或 `wordpunct`。
 
-`tokenize(text)` 返回归一化后的词。想查看原始分词边界，可以调用 `tokenizer.surface_tokens(text)`。
+需要做归一化时，调用 `tokenizer.tokenize(text)`；查看原始分词边界时，调用 `tokenizer.surface_tokens(text)`。缩写展开默认开启，可以通过 `get_tokenizer("custom", expand_contractions=False)` 单独关闭。
 
 做搜索时，评论和查询要用同一种分词器、同一套设置；换设置后需要重新建索引。做情感分析时，可以直接读取原始评论，保留标点和大小写。
 
