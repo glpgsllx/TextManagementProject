@@ -1,0 +1,17 @@
+term,period,target_count,eligible_words,jaccard_previous,jaccard_first,same_period_resample_jaccard,new_since_previous
+service,2014,696,131,,1.0,0.6337,
+service,2015,1011,175,0.4815,0.4815,0.6186,impeccable lousy mediocre notch lack consistent stellar
+service,2016,1284,219,0.5385,0.4286,0.5211,sub ambience experienced great worst quick
+service,2017,1264,224,0.4286,0.3333,0.5221,industry lackluster provided meh phenomenal ambiance consistently lacking
+service,2018,1372,236,0.3793,0.3333,0.5466,costumer impeccable superb faster horrible quick efficient receive inviting
+service,2019,1472,248,0.3793,0.3793,0.5759,stellar ambience polite sucks experienced worse despite lacking downhill
+service,2020,926,160,0.2903,0.3793,0.5217,wonderful fast note received worst friendly great mediocre fantastic lack fair
+service,2021,1293,231,0.2903,0.3793,0.4797,impeccable ambience stellar lousy crappy spectacular subpar superb efficient lacking par
+price,2014,147,18,,1.0,0.6132,
+price,2015,218,28,0.3103,0.3103,0.544,decent size portions portion worth right full big definitely hour happy
+price,2016,224,36,0.3793,0.1875,0.578,fair beat paid average point amount either sandwich drinks
+price,2017,205,29,0.3793,0.3103,0.5219,value especially sushi right happy pizza better good much
+price,2018,202,30,0.4815,0.3103,0.527,expensive pay amount size excellent meal two
+price,2019,213,28,0.3793,0.2667,0.5435,tag expected portion huge pretty bit think little definitely
+price,2020,127,15,0.25,0.2692,0.555,paid still good great really service food time
+price,2021,178,19,0.4167,0.3214,0.6176,fair expected point small portions bit pizza wait best

@@ -1,0 +1,29 @@
+sector,year,cohort,reviews,mean_compound
+Fast Food,2014,incumbent,95,0.5556
+Fast Food,2015,incumbent,242,0.5809
+Fast Food,2016,entrant,39,0.6016
+Fast Food,2016,incumbent,255,0.6153
+Fast Food,2017,entrant,114,0.6205
+Fast Food,2017,incumbent,238,0.5416
+Fast Food,2018,entrant,216,0.5047
+Fast Food,2018,incumbent,254,0.4579
+Fast Food,2019,entrant,238,0.6104
+Fast Food,2019,incumbent,230,0.3605
+Fast Food,2020,entrant,188,0.4381
+Fast Food,2020,incumbent,198,0.1902
+Fast Food,2021,entrant,221,0.4516
+Fast Food,2021,incumbent,229,0.105
+Italian,2014,incumbent,148,0.5444
+Italian,2015,incumbent,208,0.5567
+Italian,2016,entrant,9,0.7425
+Italian,2016,incumbent,137,0.5748
+Italian,2017,entrant,16,0.7606
+Italian,2017,incumbent,171,0.6505
+Italian,2018,entrant,11,0.4483
+Italian,2018,incumbent,140,0.5643
+Italian,2019,entrant,39,0.617
+Italian,2019,incumbent,134,0.5823
+Italian,2020,entrant,27,0.775
+Italian,2020,incumbent,111,0.4336
+Italian,2021,entrant,50,0.7508
+Italian,2021,incumbent,106,0.5847
