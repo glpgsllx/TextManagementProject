@@ -1,0 +1,7890 @@
+{
+ "meta": {
+  "topK": 200,
+  "indexes": {
+   "ours_tok": {
+    "numDocs": 37401,
+    "sumTotalTermFreq": 3783589,
+    "avgdl": 101.16277639635304,
+    "analyzer": "WhitespaceAnalyzer（不再分词，token 由我们的 custom 分词器给出）"
+   },
+   "std": {
+    "numDocs": 37401,
+    "sumTotalTermFreq": 3737126,
+    "avgdl": 99.9204834095345,
+    "analyzer": "StandardAnalyzer（Lucene 默认，含英文停用词表）"
+   }
+  },
+  "lucene": "10.5.2",
+  "java": "25.0.3"
+ },
+ "index": {
+  "reviews": 37401,
+  "tokenizer": "custom",
+  "avgdl": 101.1628
+ },
+ "groups": {
+  "E8": {
+   "pair": [
+    "bm25_lucene",
+    "lucene_bm25_ours_tok"
+   ],
+   "note": "手搓的 Lucene idf 复刻 vs 真 Lucene BM25：同 token、同 k1/b，只看复刻忠不忠实",
+   "aggregate": [
+    {
+     "slice": "全部查询",
+     "n_queries": 50,
+     "overlap@5": 4.72,
+     "overlap@10": 9.32,
+     "overlap@20": 18.76,
+     "overlap@50": 46.9,
+     "tau_union": 0.9448,
+     "tau_intersection": 0.9482,
+     "top1_same_rate": 0.88
+    },
+    {
+     "slice": "axis=aspect",
+     "n_queries": 12,
+     "overlap@5": 4.8333,
+     "overlap@10": 9.8333,
+     "overlap@20": 19.75,
+     "overlap@50": 49.1667,
+     "tau_union": 0.9653,
+     "tau_intersection": 0.9685,
+     "top1_same_rate": 0.8333
+    },
+    {
+     "slice": "axis=attribute",
+     "n_queries": 10,
+     "overlap@5": 5.0,
+     "overlap@10": 9.6,
+     "overlap@20": 19.4,
+     "overlap@50": 48.8,
+     "tau_union": 0.9576,
+     "tau_intersection": 0.9588,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=category",
+     "n_queries": 12,
+     "overlap@5": 5.0,
+     "overlap@10": 9.5833,
+     "overlap@20": 19.75,
+     "overlap@50": 48.8333,
+     "tau_union": 0.9433,
+     "tau_intersection": 0.9462,
+     "top1_same_rate": 0.9167
+    },
+    {
+     "slice": "axis=df_spectrum",
+     "n_queries": 10,
+     "overlap@5": 4.4,
+     "overlap@10": 8.8,
+     "overlap@20": 17.4,
+     "overlap@50": 44.2,
+     "tau_union": 0.9395,
+     "tau_intersection": 0.9425,
+     "top1_same_rate": 0.9
+    },
+    {
+     "slice": "axis=edge",
+     "n_queries": 6,
+     "overlap@5": 4.0,
+     "overlap@10": 8.1667,
+     "overlap@20": 16.0,
+     "overlap@50": 39.8333,
+     "tau_union": 0.8831,
+     "tau_intersection": 0.8936,
+     "top1_same_rate": 0.6667
+    }
+   ],
+   "per_query": {
+    "Q01": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8737300435413643,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1291,
+      "nd": 87,
+      "z": 9.235526173967461,
+      "p_two_sided": 2.570196367867697e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8908418131359852,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1022,
+      "nd": 59,
+      "z": 8.831146667284306,
+      "p_two_sided": 1.03608024200284e-18
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q02": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8672699849170438,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1238,
+      "nd": 88,
+      "z": 9.074737767026004,
+      "p_two_sided": 1.1395156267608208e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8723404255319149,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1056,
+      "nd": 72,
+      "z": 8.745831713535967,
+      "p_two_sided": 2.2137884980280672e-18
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "sushi",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q03": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9529411764705882,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1245,
+      "nd": 30,
+      "z": 9.868486501909638,
+      "p_two_sided": 5.70184154221985e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9574829931972789,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1151,
+      "nd": 25,
+      "z": 9.705934853940857,
+      "p_two_sided": 2.844565419374383e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "category",
+     "text": "thai food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q04": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9686274509803922,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1255,
+      "nd": 20,
+      "z": 10.030930724163294,
+      "p_two_sided": 1.1146093526082231e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.967687074829932,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1157,
+      "nd": 19,
+      "z": 9.80937288080346,
+      "p_two_sided": 1.0260421787409739e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "taco tuesday",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q05": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9260935143288085,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1277,
+      "nd": 49,
+      "z": 9.69024171991994,
+      "p_two_sided": 3.3174259284978494e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9326241134751773,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1090,
+      "nd": 38,
+      "z": 9.350218457967314,
+      "p_two_sided": 8.746687960598162e-21
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "coffee shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q06": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9624489795918367,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1202,
+      "nd": 23,
+      "z": 9.862167308625606,
+      "p_two_sided": 6.072425538987234e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9624489795918367,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1202,
+      "nd": 23,
+      "z": 9.862167308625606,
+      "p_two_sided": 6.072425538987234e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "breakfast burrito",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q07": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9529411764705882,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1245,
+      "nd": 30,
+      "z": 9.868486501909638,
+      "p_two_sided": 5.70184154221985e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.95578231292517,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1150,
+      "nd": 26,
+      "z": 9.68869518279709,
+      "p_two_sided": 3.368038947326781e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "ice cream",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q08": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9419607843137255,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1238,
+      "nd": 37,
+      "z": 9.754775546332079,
+      "p_two_sided": 1.7598954818051883e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9387755102040817,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1140,
+      "nd": 36,
+      "z": 9.51629847135942,
+      "p_two_sided": 1.7945752385076225e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "bbq chicken",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q09": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9836734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1215,
+      "nd": 10,
+      "z": 10.079653610596994,
+      "p_two_sided": 6.796529683345871e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9836734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1215,
+      "nd": 10,
+      "z": 10.079653610596994,
+      "p_two_sided": 6.796529683345871e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "barber shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q10": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9529411764705882,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1245,
+      "nd": 30,
+      "z": 9.868486501909638,
+      "p_two_sided": 5.70184154221985e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9506802721088435,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1147,
+      "nd": 29,
+      "z": 9.63697616936579,
+      "p_two_sided": 5.580768064189875e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "dentist appointment",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q11": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9733333333333334,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1258,
+      "nd": 17,
+      "z": 10.079663990839393,
+      "p_two_sided": 6.795811737358211e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9727891156462585,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 16,
+      "z": 9.861091894234761,
+      "p_two_sided": 6.137824560296724e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "oil change",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q12": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9639215686274509,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1252,
+      "nd": 23,
+      "z": 9.982197457487198,
+      "p_two_sided": 1.8238213379924688e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9693877551020408,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1158,
+      "nd": 18,
+      "z": 9.826612551947226,
+      "p_two_sided": 8.64787591213927e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "brake repair",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q13": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9450980392156862,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1240,
+      "nd": 35,
+      "z": 9.787264390782811,
+      "p_two_sided": 1.2770420611487573e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9438775510204082,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1143,
+      "nd": 33,
+      "z": 9.56801748479072,
+      "p_two_sided": 1.0897521583233858e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "terrible service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q14": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9733333333333334,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1258,
+      "nd": 17,
+      "z": 10.079663990839393,
+      "p_two_sided": 6.795811737358211e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9744897959183674,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1161,
+      "nd": 15,
+      "z": 9.878331565378527,
+      "p_two_sided": 5.168627674410223e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "rude staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q15": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9853061224489796,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1216,
+      "nd": 9,
+      "z": 10.096383326133253,
+      "p_two_sided": 5.731717267130718e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9853061224489796,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1216,
+      "nd": 9,
+      "z": 10.096383326133253,
+      "p_two_sided": 5.731717267130718e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "friendly staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q16": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9701960784313726,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1256,
+      "nd": 19,
+      "z": 10.04717514638866,
+      "p_two_sided": 9.453858521177823e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9727891156462585,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 16,
+      "z": 9.861091894234761,
+      "p_two_sided": 6.137824560296724e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "slow service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q17": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9592156862745098,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1249,
+      "nd": 26,
+      "z": 9.933464190811101,
+      "p_two_sided": 2.977283959885734e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9591836734693877,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1152,
+      "nd": 24,
+      "z": 9.723174525084625,
+      "p_two_sided": 2.4017453698240657e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "long wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q18": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.990204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1219,
+      "nd": 6,
+      "z": 10.146572472742035,
+      "p_two_sided": 3.432059620868513e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.990204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1219,
+      "nd": 6,
+      "z": 10.146572472742035,
+      "p_two_sided": 3.432059620868513e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "overpriced",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q19": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9576470588235294,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1248,
+      "nd": 27,
+      "z": 9.917219768585735,
+      "p_two_sided": 3.503799365451063e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9659863945578231,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1156,
+      "nd": 20,
+      "z": 9.792133209659692,
+      "p_two_sided": 1.2170072582033635e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "best pizza in town",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q20": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9372549019607843,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1235,
+      "nd": 40,
+      "z": 9.706042279655982,
+      "p_two_sided": 2.8415701983810696e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9387755102040817,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1140,
+      "nd": 36,
+      "z": 9.51629847135942,
+      "p_two_sided": 1.7945752385076225e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "worst experience ever",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q21": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9670588235294117,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1254,
+      "nd": 21,
+      "z": 10.01468630193793,
+      "p_two_sided": 1.3137802867802987e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9727891156462585,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 16,
+      "z": 9.861091894234761,
+      "p_two_sided": 6.137824560296724e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "cold food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q22": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9562594268476622,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1297,
+      "nd": 29,
+      "z": 10.005884772686063,
+      "p_two_sided": 1.436022349006433e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9645390070921985,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1108,
+      "nd": 20,
+      "z": 9.670187910901557,
+      "p_two_sided": 4.0363626102508114e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "wrong order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q23": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9419607843137255,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1238,
+      "nd": 37,
+      "z": 9.754775546332079,
+      "p_two_sided": 1.7598954818051883e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9540816326530612,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1149,
+      "nd": 27,
+      "z": 9.671455511653324,
+      "p_two_sided": 3.986671972305537e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "dirty bathroom",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q24": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 1.0,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1225,
+      "nd": 0,
+      "z": 10.2469507659596,
+      "p_two_sided": 1.221358380729655e-24
+     },
+     "tau_b_intersection": {
+      "tau": 1.0,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1225,
+      "nd": 0,
+      "z": 10.2469507659596,
+      "p_two_sided": 1.221358380729655e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "great atmosphere",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q25": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9623529411764706,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1251,
+      "nd": 24,
+      "z": 9.965953035261832,
+      "p_two_sided": 2.1480371712881456e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9625850340136054,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1154,
+      "nd": 22,
+      "z": 9.75765386737216,
+      "p_two_sided": 1.7106677236861292e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "gluten free pancakes",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q26": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9545098039215686,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1246,
+      "nd": 29,
+      "z": 9.884730924135004,
+      "p_two_sided": 4.848826776505657e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.95578231292517,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1150,
+      "nd": 26,
+      "z": 9.68869518279709,
+      "p_two_sided": 3.368038947326781e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "vegan options",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q27": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9607843137254902,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1250,
+      "nd": 25,
+      "z": 9.949708613036467,
+      "p_two_sided": 2.5292268275449626e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9591836734693877,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1152,
+      "nd": 24,
+      "z": 9.723174525084625,
+      "p_two_sided": 2.4017453698240657e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "dog friendly patio",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q28": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9749019607843137,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1259,
+      "nd": 16,
+      "z": 10.095908413064757,
+      "p_two_sided": 5.7595314930140236e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9778911564625851,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1163,
+      "nd": 13,
+      "z": 9.912810907666062,
+      "p_two_sided": 3.661957657466416e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "outdoor seating",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q29": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9502262443438914,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1293,
+      "nd": 33,
+      "z": 9.942756162132838,
+      "p_two_sided": 2.712172255021955e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9556737588652482,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1103,
+      "nd": 25,
+      "z": 9.581307507308711,
+      "p_two_sided": 9.582405110993786e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "drive thru",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q30": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.971764705882353,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1257,
+      "nd": 18,
+      "z": 10.063419568614027,
+      "p_two_sided": 8.016448100826746e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9710884353741497,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1159,
+      "nd": 17,
+      "z": 9.843852223090995,
+      "p_two_sided": 7.286615772629905e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "free wifi",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q31": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9623529411764706,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1251,
+      "nd": 24,
+      "z": 9.965953035261832,
+      "p_two_sided": 2.1480371712881456e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9625850340136054,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1154,
+      "nd": 22,
+      "z": 9.75765386737216,
+      "p_two_sided": 1.7106677236861292e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "happy hour",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q32": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9773755656108597,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1311,
+      "nd": 15,
+      "z": 10.22683490962235,
+      "p_two_sided": 1.5035315961799016e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9840425531914894,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1119,
+      "nd": 9,
+      "z": 9.865724798805816,
+      "p_two_sided": 5.860961283202271e-23
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "kid friendly",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q33": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9526530612244898,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1196,
+      "nd": 29,
+      "z": 9.761789015408043,
+      "p_two_sided": 1.6423212707290948e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9526530612244898,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1196,
+      "nd": 29,
+      "z": 9.761789015408043,
+      "p_two_sided": 1.6423212707290948e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "wheelchair accessible",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q34": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9095022624434389,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1266,
+      "nd": 60,
+      "z": 9.516638040898574,
+      "p_two_sided": 1.78872293426825e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9060283687943262,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1075,
+      "nd": 53,
+      "z": 9.083577247188778,
+      "p_two_sided": 1.050637322744248e-19
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "takeout order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q35": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 18,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.8713725490196078,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1193,
+      "nd": 82,
+      "z": 9.023776546190623,
+      "p_two_sided": 1.8171442968614399e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8809523809523809,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1106,
+      "nd": 70,
+      "z": 8.93014965247134,
+      "p_two_sided": 4.2543289040587873e-19
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q36": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q37": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9513725490196079,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1244,
+      "nd": 31,
+      "z": 9.852242079684272,
+      "p_two_sided": 6.703168338144239e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q38": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9105882352941177,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 57,
+      "z": 9.429887101824766,
+      "p_two_sided": 4.1053060330654435e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9200680272108843,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1129,
+      "nd": 47,
+      "z": 9.326662088777981,
+      "p_two_sided": 1.092575215126457e-20
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q39": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 18,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.918722786647315,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1322,
+      "nd": 56,
+      "z": 9.711109747709973,
+      "p_two_sided": 2.70377098350271e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9130434782608695,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1034,
+      "nd": 47,
+      "z": 9.051237549958058,
+      "p_two_sided": 1.4135706011218997e-19
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "salad",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q40": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9482352941176471,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1242,
+      "nd": 33,
+      "z": 9.819753235233541,
+      "p_two_sided": 9.256986439642973e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "burger",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q41": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9510204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1195,
+      "nd": 30,
+      "z": 9.745059299871782,
+      "p_two_sided": 1.9366576518315208e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9510204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1195,
+      "nd": 30,
+      "z": 9.745059299871782,
+      "p_two_sided": 1.9366576518315208e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "rude",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q42": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9547511312217195,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1296,
+      "nd": 30,
+      "z": 9.990102620047757,
+      "p_two_sided": 1.684073091345262e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9698581560283688,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1111,
+      "nd": 17,
+      "z": 9.723516153057265,
+      "p_two_sided": 2.39369815599443e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "df_spectrum",
+     "text": "patio",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q43": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9689795918367347,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1206,
+      "nd": 19,
+      "z": 9.929086170770647,
+      "p_two_sided": 3.110934298134857e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9689795918367347,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1206,
+      "nd": 19,
+      "z": 9.929086170770647,
+      "p_two_sided": 3.110934298134857e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "espresso",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q44": {
+     "overlap": {
+      "@5": 1,
+      "@10": 1,
+      "@20": 1,
+      "@50": 1
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 1,
+     "n_intersection": 1,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "xylophone",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q45": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 18,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.7239057239057239,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1280,
+      "nd": 205,
+      "z": 7.804005592886749,
+      "p_two_sided": 5.9972532716215355e-15
+     },
+     "tau_b_intersection": {
+      "tau": 0.7535353535353535,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 868,
+      "nd": 122,
+      "z": 7.297610541624215,
+      "p_two_sided": 2.9292305039546026e-13
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "the and of",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q46": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8868778280542986,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1251,
+      "nd": 75,
+      "z": 9.279905751323984,
+      "p_two_sided": 1.6962854471781773e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8936170212765957,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1068,
+      "nd": 60,
+      "z": 8.959144682158795,
+      "p_two_sided": 3.2720657045434615e-19
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "the food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q47": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9640816326530612,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1203,
+      "nd": 22,
+      "z": 9.878897024161866,
+      "p_two_sided": 5.13954801300118e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9640816326530612,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1203,
+      "nd": 22,
+      "z": 9.878897024161866,
+      "p_two_sided": 5.13954801300118e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "pizza and pasta",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q48": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8737300435413643,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1291,
+      "nd": 87,
+      "z": 9.235526173967461,
+      "p_two_sided": 2.570196367867697e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8908418131359852,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1022,
+      "nd": 59,
+      "z": 8.831146667284306,
+      "p_two_sided": 1.03608024200284e-18
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q49": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9670588235294117,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1254,
+      "nd": 21,
+      "z": 10.01468630193793,
+      "p_two_sided": 1.3137802867802987e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9659863945578231,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1156,
+      "nd": 20,
+      "z": 9.792133209659692,
+      "p_two_sided": 1.2170072582033635e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "don't waste your money",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q50": {
+     "overlap": {
+      "@5": 0,
+      "@10": 0,
+      "@20": 0,
+      "@50": 0
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 0,
+     "n_intersection": 0,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "zzyzx",
+     "df_band": "df = 0 (零命中)"
+    }
+   }
+  },
+  "E9": {
+   "pair": [
+    "bm25_okapi",
+    "lucene_bm25_ours_tok"
+   ],
+   "note": "交付口径 BM25（Okapi 钳制 idf + (k1+1)）vs 真 Lucene BM25：同 token，差在 idf 与常数",
+   "aggregate": [
+    {
+     "slice": "全部查询",
+     "n_queries": 50,
+     "overlap@5": 4.62,
+     "overlap@10": 9.02,
+     "overlap@20": 18.04,
+     "overlap@50": 45.32,
+     "tau_union": 0.9115,
+     "tau_intersection": 0.9213,
+     "top1_same_rate": 0.86
+    },
+    {
+     "slice": "axis=aspect",
+     "n_queries": 12,
+     "overlap@5": 4.8333,
+     "overlap@10": 9.5833,
+     "overlap@20": 19.3333,
+     "overlap@50": 47.8333,
+     "tau_union": 0.8934,
+     "tau_intersection": 0.9083,
+     "top1_same_rate": 0.8333
+    },
+    {
+     "slice": "axis=attribute",
+     "n_queries": 10,
+     "overlap@5": 5.0,
+     "overlap@10": 9.6,
+     "overlap@20": 19.2,
+     "overlap@50": 48.5,
+     "tau_union": 0.9427,
+     "tau_intersection": 0.9455,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=category",
+     "n_queries": 12,
+     "overlap@5": 5.0,
+     "overlap@10": 9.6667,
+     "overlap@20": 19.6667,
+     "overlap@50": 48.5,
+     "tau_union": 0.9263,
+     "tau_intersection": 0.9362,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=df_spectrum",
+     "n_queries": 10,
+     "overlap@5": 4.4,
+     "overlap@10": 8.8,
+     "overlap@20": 17.4,
+     "overlap@50": 44.2,
+     "tau_union": 0.9395,
+     "tau_intersection": 0.9425,
+     "top1_same_rate": 0.9
+    },
+    {
+     "slice": "axis=edge",
+     "n_queries": 6,
+     "overlap@5": 3.1667,
+     "overlap@10": 6.0,
+     "overlap@20": 11.3333,
+     "overlap@50": 30.5,
+     "tau_union": 0.7805,
+     "tau_intersection": 0.8078,
+     "top1_same_rate": 0.3333
+    }
+   ],
+   "per_query": {
+    "Q01": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8737300435413643,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1291,
+      "nd": 87,
+      "z": 9.235526173967461,
+      "p_two_sided": 2.570196367867697e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8908418131359852,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1022,
+      "nd": 59,
+      "z": 8.831146667284306,
+      "p_two_sided": 1.03608024200284e-18
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q02": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8672699849170438,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1238,
+      "nd": 88,
+      "z": 9.074737767026004,
+      "p_two_sided": 1.1395156267608208e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8723404255319149,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1056,
+      "nd": 72,
+      "z": 8.745831713535967,
+      "p_two_sided": 2.2137884980280672e-18
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "sushi",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q03": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.7545454545454545,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1351,
+      "nd": 189,
+      "z": 8.212475585641352,
+      "p_two_sided": 2.166741247292498e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.8435517970401691,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 872,
+      "nd": 74,
+      "z": 8.071181314413296,
+      "p_two_sided": 6.962123689036537e-16
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "thai food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q04": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9654901960784313,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1253,
+      "nd": 22,
+      "z": 9.998441879712564,
+      "p_two_sided": 1.54813659422783e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9642857142857143,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1155,
+      "nd": 21,
+      "z": 9.774893538515926,
+      "p_two_sided": 1.443089663635936e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "taco tuesday",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q05": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9260935143288085,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1277,
+      "nd": 49,
+      "z": 9.69024171991994,
+      "p_two_sided": 3.3174259284978494e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9326241134751773,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1090,
+      "nd": 38,
+      "z": 9.350218457967314,
+      "p_two_sided": 8.746687960598162e-21
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "coffee shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q06": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9657142857142857,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1204,
+      "nd": 21,
+      "z": 9.895626739698127,
+      "p_two_sided": 4.348778420416752e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9657142857142857,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1204,
+      "nd": 21,
+      "z": 9.895626739698127,
+      "p_two_sided": 4.348778420416752e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "breakfast burrito",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q07": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9529411764705882,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1245,
+      "nd": 30,
+      "z": 9.868486501909638,
+      "p_two_sided": 5.70184154221985e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.95578231292517,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1150,
+      "nd": 26,
+      "z": 9.68869518279709,
+      "p_two_sided": 3.368038947326781e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "ice cream",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q08": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9356862745098039,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1234,
+      "nd": 41,
+      "z": 9.689797857430616,
+      "p_two_sided": 3.331874553147845e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9319727891156463,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1136,
+      "nd": 40,
+      "z": 9.447339786784351,
+      "p_two_sided": 3.475510684691012e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "bbq chicken",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q09": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9836734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1215,
+      "nd": 10,
+      "z": 10.079653610596994,
+      "p_two_sided": 6.796529683345871e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9836734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1215,
+      "nd": 10,
+      "z": 10.079653610596994,
+      "p_two_sided": 6.796529683345871e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "barber shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q10": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9513725490196079,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1244,
+      "nd": 31,
+      "z": 9.852242079684272,
+      "p_two_sided": 6.703168338144239e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "dentist appointment",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q11": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9722448979591837,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1208,
+      "nd": 17,
+      "z": 9.96254560184317,
+      "p_two_sided": 2.2229661292758403e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9722448979591837,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1208,
+      "nd": 17,
+      "z": 9.96254560184317,
+      "p_two_sided": 2.2229661292758403e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "oil change",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q12": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9670588235294117,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1254,
+      "nd": 21,
+      "z": 10.01468630193793,
+      "p_two_sided": 1.3137802867802987e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9727891156462585,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 16,
+      "z": 9.861091894234761,
+      "p_two_sided": 6.137824560296724e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "brake repair",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q13": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8582202111613876,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1232,
+      "nd": 94,
+      "z": 8.980044851196167,
+      "p_two_sided": 2.7065640707399847e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.9113475177304965,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1078,
+      "nd": 50,
+      "z": 9.136905489344485,
+      "p_two_sided": 6.426489658133042e-20
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "terrible service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q14": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9562594268476622,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1297,
+      "nd": 29,
+      "z": 10.005884772686063,
+      "p_two_sided": 1.436022349006433e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9663120567375887,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1109,
+      "nd": 19,
+      "z": 9.687963991620126,
+      "p_two_sided": 3.392233737824459e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "rude staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q15": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "friendly staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q16": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 18,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.8518518518518519,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1325,
+      "nd": 106,
+      "z": 9.094229750191191,
+      "p_two_sided": 9.525926986763487e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8608695652173913,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 963,
+      "nd": 72,
+      "z": 8.43612326284778,
+      "p_two_sided": 3.280368312967704e-17
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "slow service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q17": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9466666666666667,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1241,
+      "nd": 34,
+      "z": 9.803508813008175,
+      "p_two_sided": 1.0874120812446997e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9455782312925171,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1144,
+      "nd": 32,
+      "z": 9.585257155934489,
+      "p_two_sided": 9.222760542983953e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "long wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q18": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.990204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1219,
+      "nd": 6,
+      "z": 10.146572472742035,
+      "p_two_sided": 3.432059620868513e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.990204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1219,
+      "nd": 6,
+      "z": 10.146572472742035,
+      "p_two_sided": 3.432059620868513e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "overpriced",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q19": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 18,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.7694235588972431,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1412,
+      "nd": 184,
+      "z": 8.453366478188284,
+      "p_two_sided": 2.8302155733556954e-17
+     },
+     "tau_b_intersection": {
+      "tau": 0.813953488372093,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 819,
+      "nd": 84,
+      "z": 7.692084075461694,
+      "p_two_sided": 1.4475743806564813e-14
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "best pizza in town",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q20": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9140271493212669,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1269,
+      "nd": 57,
+      "z": 9.563984498813493,
+      "p_two_sided": 1.133083512544081e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9237588652482269,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1085,
+      "nd": 43,
+      "z": 9.26133805437447,
+      "p_two_sided": 2.0188613699203713e-20
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "worst experience ever",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q21": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.7793904208998549,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1226,
+      "nd": 152,
+      "z": 8.238334809668649,
+      "p_two_sided": 1.7462394918418758e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.8094357076780758,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 978,
+      "nd": 103,
+      "z": 8.024146764147215,
+      "p_two_sided": 1.0223401769504171e-15
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "cold food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q22": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9403921568627451,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1237,
+      "nd": 38,
+      "z": 9.738531124106713,
+      "p_two_sided": 2.0651780968813404e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9455782312925171,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1144,
+      "nd": 32,
+      "z": 9.585257155934489,
+      "p_two_sided": 9.222760542983953e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "wrong order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q23": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9403921568627451,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1237,
+      "nd": 38,
+      "z": 9.738531124106713,
+      "p_two_sided": 2.0651780968813404e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9523809523809523,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1148,
+      "nd": 28,
+      "z": 9.654215840509556,
+      "p_two_sided": 4.717545791161571e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "dirty bathroom",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q24": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.7939042089985486,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1236,
+      "nd": 142,
+      "z": 8.39174886571462,
+      "p_two_sided": 4.78963176285146e-17
+     },
+     "tau_b_intersection": {
+      "tau": 0.8001850138760407,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 973,
+      "nd": 108,
+      "z": 7.932442229699818,
+      "p_two_sided": 2.148776844541593e-15
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "great atmosphere",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q25": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9592156862745098,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1249,
+      "nd": 26,
+      "z": 9.933464190811101,
+      "p_two_sided": 2.977283959885734e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9591836734693877,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1152,
+      "nd": 24,
+      "z": 9.723174525084625,
+      "p_two_sided": 2.4017453698240657e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "gluten free pancakes",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q26": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9498039215686275,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1243,
+      "nd": 32,
+      "z": 9.835997657458908,
+      "p_two_sided": 7.878283765555392e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9506802721088435,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1147,
+      "nd": 29,
+      "z": 9.63697616936579,
+      "p_two_sided": 5.580768064189875e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "vegan options",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q27": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9498039215686275,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1243,
+      "nd": 32,
+      "z": 9.835997657458908,
+      "p_two_sided": 7.878283765555392e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9472789115646258,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1145,
+      "nd": 31,
+      "z": 9.602496827078255,
+      "p_two_sided": 7.8030856423881465e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "dog friendly patio",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q28": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9749019607843137,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1259,
+      "nd": 16,
+      "z": 10.095908413064757,
+      "p_two_sided": 5.7595314930140236e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9778911564625851,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1163,
+      "nd": 13,
+      "z": 9.912810907666062,
+      "p_two_sided": 3.661957657466416e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "outdoor seating",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q29": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9502262443438914,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1293,
+      "nd": 33,
+      "z": 9.942756162132838,
+      "p_two_sided": 2.712172255021955e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9556737588652482,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1103,
+      "nd": 25,
+      "z": 9.581307507308711,
+      "p_two_sided": 9.582405110993786e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "drive thru",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q30": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9701960784313726,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1256,
+      "nd": 19,
+      "z": 10.04717514638866,
+      "p_two_sided": 9.453858521177823e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9693877551020408,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1158,
+      "nd": 18,
+      "z": 9.826612551947226,
+      "p_two_sided": 8.64787591213927e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "free wifi",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q31": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9623529411764706,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1251,
+      "nd": 24,
+      "z": 9.965953035261832,
+      "p_two_sided": 2.1480371712881456e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9625850340136054,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1154,
+      "nd": 22,
+      "z": 9.75765386737216,
+      "p_two_sided": 1.7106677236861292e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "happy hour",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q32": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.9287211740041929,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1380,
+      "nd": 51,
+      "z": 9.914873944219929,
+      "p_two_sided": 3.58708968704089e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9439613526570049,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1006,
+      "nd": 29,
+      "z": 9.250384318521078,
+      "p_two_sided": 2.2368692455555724e-20
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "kid friendly",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q33": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9526530612244898,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1196,
+      "nd": 29,
+      "z": 9.761789015408043,
+      "p_two_sided": 1.6423212707290948e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9526530612244898,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1196,
+      "nd": 29,
+      "z": 9.761789015408043,
+      "p_two_sided": 1.6423212707290948e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "wheelchair accessible",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q34": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 18,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8287373004354136,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1260,
+      "nd": 118,
+      "z": 8.759942600224951,
+      "p_two_sided": 1.9534982419497824e-18
+     },
+     "tau_b_intersection": {
+      "tau": 0.8353376503237743,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 992,
+      "nd": 89,
+      "z": 8.280919460599925,
+      "p_two_sided": 1.2222783704939625e-16
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "takeout order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q35": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 18,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.8713725490196078,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1193,
+      "nd": 82,
+      "z": 9.023776546190623,
+      "p_two_sided": 1.8171442968614399e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8809523809523809,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1106,
+      "nd": 70,
+      "z": 8.93014965247134,
+      "p_two_sided": 4.2543289040587873e-19
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q36": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q37": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9513725490196079,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1244,
+      "nd": 31,
+      "z": 9.852242079684272,
+      "p_two_sided": 6.703168338144239e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q38": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9105882352941177,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 57,
+      "z": 9.429887101824766,
+      "p_two_sided": 4.1053060330654435e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9200680272108843,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1129,
+      "nd": 47,
+      "z": 9.326662088777981,
+      "p_two_sided": 1.092575215126457e-20
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q39": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 18,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.918722786647315,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1322,
+      "nd": 56,
+      "z": 9.711109747709973,
+      "p_two_sided": 2.70377098350271e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9130434782608695,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1034,
+      "nd": 47,
+      "z": 9.051237549958058,
+      "p_two_sided": 1.4135706011218997e-19
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "salad",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q40": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9482352941176471,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1242,
+      "nd": 33,
+      "z": 9.819753235233541,
+      "p_two_sided": 9.256986439642973e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "burger",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q41": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9510204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1195,
+      "nd": 30,
+      "z": 9.745059299871782,
+      "p_two_sided": 1.9366576518315208e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9510204081632653,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1195,
+      "nd": 30,
+      "z": 9.745059299871782,
+      "p_two_sided": 1.9366576518315208e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "rude",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q42": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9547511312217195,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1296,
+      "nd": 30,
+      "z": 9.990102620047757,
+      "p_two_sided": 1.684073091345262e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9698581560283688,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1111,
+      "nd": 17,
+      "z": 9.723516153057265,
+      "p_two_sided": 2.39369815599443e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "df_spectrum",
+     "text": "patio",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q43": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9689795918367347,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1206,
+      "nd": 19,
+      "z": 9.929086170770647,
+      "p_two_sided": 3.110934298134857e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9689795918367347,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1206,
+      "nd": 19,
+      "z": 9.929086170770647,
+      "p_two_sided": 3.110934298134857e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "espresso",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q44": {
+     "overlap": {
+      "@5": 1,
+      "@10": 1,
+      "@20": 1,
+      "@50": 1
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 1,
+     "n_intersection": 1,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "xylophone",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q45": {
+     "overlap": {
+      "@5": 0,
+      "@10": 0,
+      "@20": 0,
+      "@50": 0
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 50,
+     "n_intersection": 0,
+     "n_missing_a": 50,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "the and of",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q46": {
+     "overlap": {
+      "@5": 4,
+      "@10": 7,
+      "@20": 11,
+      "@50": 41
+     },
+     "tau_b_union": {
+      "tau": 0.41644409325559,
+      "n": 59,
+      "n0": 1711,
+      "n1": 0,
+      "n2": 36,
+      "nc": 1190,
+      "nd": 485,
+      "z": null,
+      "p_two_sided": null
+     },
+     "tau_b_intersection": {
+      "tau": 0.47317073170731705,
+      "n": 41,
+      "n0": 820,
+      "n1": 0,
+      "n2": 0,
+      "nc": 604,
+      "nd": 216,
+      "z": 4.357991991365293,
+      "p_two_sided": 1.3126118581217978e-05
+     },
+     "n_union": 59,
+     "n_intersection": 41,
+     "n_missing_a": 0,
+     "n_missing_b": 9,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "the food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q47": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9321266968325792,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1281,
+      "nd": 45,
+      "z": 9.753370330473166,
+      "p_two_sided": 1.7844356163574877e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9485815602836879,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1099,
+      "nd": 29,
+      "z": 9.510203184434435,
+      "p_two_sided": 1.902904935528871e-21
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "pizza and pasta",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q48": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8737300435413643,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1291,
+      "nd": 87,
+      "z": 9.235526173967461,
+      "p_two_sided": 2.570196367867697e-20
+     },
+     "tau_b_intersection": {
+      "tau": 0.8908418131359852,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1022,
+      "nd": 59,
+      "z": 8.831146667284306,
+      "p_two_sided": 1.03608024200284e-18
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q49": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8998548621190131,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1309,
+      "nd": 69,
+      "z": 9.511671474850209,
+      "p_two_sided": 1.8762323058649656e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9185938945420906,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1037,
+      "nd": 44,
+      "z": 9.106260270626496,
+      "p_two_sided": 8.527060615020939e-20
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "don't waste your money",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q50": {
+     "overlap": {
+      "@5": 0,
+      "@10": 0,
+      "@20": 0,
+      "@50": 0
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 0,
+     "n_intersection": 0,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "zzyzx",
+     "df_band": "df = 0 (零命中)"
+    }
+   }
+  },
+  "E10": {
+   "pair": [
+    "tfidf_lnc_ltc",
+    "lucene_classic_ours_tok"
+   ],
+   "note": "我们的 TF-IDF 余弦 lnc.ltc vs Lucene 内置 ClassicSimilarity：同 token，两套 formula",
+   "aggregate": [
+    {
+     "slice": "全部查询",
+     "n_queries": 50,
+     "overlap@5": 3.8,
+     "overlap@10": 7.8,
+     "overlap@20": 16.0,
+     "overlap@50": 40.64,
+     "tau_union": 0.6431,
+     "tau_intersection": 0.6912,
+     "top1_same_rate": 0.7
+    },
+    {
+     "slice": "axis=aspect",
+     "n_queries": 12,
+     "overlap@5": 4.1667,
+     "overlap@10": 8.0833,
+     "overlap@20": 16.9167,
+     "overlap@50": 45.0833,
+     "tau_union": 0.6942,
+     "tau_intersection": 0.714,
+     "top1_same_rate": 0.75
+    },
+    {
+     "slice": "axis=attribute",
+     "n_queries": 10,
+     "overlap@5": 4.0,
+     "overlap@10": 9.1,
+     "overlap@20": 17.4,
+     "overlap@50": 45.0,
+     "tau_union": 0.7313,
+     "tau_intersection": 0.7506,
+     "top1_same_rate": 0.6
+    },
+    {
+     "slice": "axis=category",
+     "n_queries": 12,
+     "overlap@5": 4.0833,
+     "overlap@10": 8.0833,
+     "overlap@20": 17.75,
+     "overlap@50": 43.5,
+     "tau_union": 0.6866,
+     "tau_intersection": 0.7201,
+     "top1_same_rate": 0.75
+    },
+    {
+     "slice": "axis=df_spectrum",
+     "n_queries": 10,
+     "overlap@5": 3.4,
+     "overlap@10": 7.3,
+     "overlap@20": 14.3,
+     "overlap@50": 35.6,
+     "tau_union": 0.5912,
+     "tau_intersection": 0.658,
+     "top1_same_rate": 0.7
+    },
+    {
+     "slice": "axis=edge",
+     "n_queries": 6,
+     "overlap@5": 2.8333,
+     "overlap@10": 5.3333,
+     "overlap@20": 11.1667,
+     "overlap@50": 27.1667,
+     "tau_union": 0.3329,
+     "tau_intersection": 0.5081,
+     "top1_same_rate": 0.6667
+    }
+   ],
+   "per_query": {
+    "Q01": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 18,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6688311688311688,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1285,
+      "nd": 255,
+      "z": 7.279560975224261,
+      "p_two_sided": 3.3490827169905413e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.718816067653277,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 813,
+      "nd": 133,
+      "z": 6.8776983631592,
+      "p_two_sided": 6.082729267904596e-12
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q02": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 17,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6974025974025974,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1307,
+      "nd": 233,
+      "z": 7.5905325120299585,
+      "p_two_sided": 3.185934332907618e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7124735729386892,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 810,
+      "nd": 136,
+      "z": 6.817012789366618,
+      "p_two_sided": 9.295299250628741e-12
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "sushi",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q03": {
+     "overlap": {
+      "@5": 3,
+      "@10": 6,
+      "@20": 16,
+      "@50": 40
+     },
+     "tau_b_union": {
+      "tau": 0.5502824858757062,
+      "n": 60,
+      "n0": 1770,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1372,
+      "nd": 398,
+      "z": 6.212101912355553,
+      "p_two_sided": 5.228050010537683e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.5358974358974359,
+      "n": 40,
+      "n0": 780,
+      "n1": 0,
+      "n2": 0,
+      "nc": 599,
+      "nd": 181,
+      "z": 4.870132446376471,
+      "p_two_sided": 1.1152346946394199e-06
+     },
+     "n_union": 60,
+     "n_intersection": 40,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "thai food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q04": {
+     "overlap": {
+      "@5": 5,
+      "@10": 7,
+      "@20": 18,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.7142857142857143,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1320,
+      "nd": 220,
+      "z": 7.774288420142415,
+      "p_two_sided": 7.587268996869335e-15
+     },
+     "tau_b_intersection": {
+      "tau": 0.7653276955602537,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 835,
+      "nd": 111,
+      "z": 7.322725904304795,
+      "p_two_sided": 2.429837860886006e-13
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "taco tuesday",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q05": {
+     "overlap": {
+      "@5": 4,
+      "@10": 7,
+      "@20": 20,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.7400673400673401,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1292,
+      "nd": 193,
+      "z": 7.978234554960499,
+      "p_two_sided": 1.4844111153909705e-15
+     },
+     "tau_b_intersection": {
+      "tau": 0.7737373737373737,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 878,
+      "nd": 112,
+      "z": 7.493256936842023,
+      "p_two_sided": 6.718519474819756e-14
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "coffee shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q06": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 17,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.6754385964912281,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1337,
+      "nd": 259,
+      "z": 7.42078913964737,
+      "p_two_sided": 1.16424544974606e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.698781838316722,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 767,
+      "nd": 136,
+      "z": 6.603680342335141,
+      "p_two_sided": 4.0107385698431863e-11
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "breakfast burrito",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q07": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 16,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6545454545454545,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1274,
+      "nd": 266,
+      "z": 7.124075206821413,
+      "p_two_sided": 1.047818216626317e-12
+     },
+     "tau_b_intersection": {
+      "tau": 0.6997885835095138,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 804,
+      "nd": 142,
+      "z": 6.695641641781457,
+      "p_two_sided": 2.1472734534425334e-11
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "ice cream",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q08": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 18,
+      "@50": 42
+     },
+     "tau_b_union": {
+      "tau": 0.5632183908045977,
+      "n": 58,
+      "n0": 1653,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1292,
+      "nd": 361,
+      "z": 6.245134897570846,
+      "p_two_sided": 4.234345093393177e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.6585365853658537,
+      "n": 42,
+      "n0": 861,
+      "n1": 0,
+      "n2": 0,
+      "nc": 714,
+      "nd": 147,
+      "z": 6.144799751833601,
+      "p_two_sided": 8.006445713492412e-10
+     },
+     "n_union": 58,
+     "n_intersection": 42,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "category",
+     "text": "bbq chicken",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q09": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.7727272727272727,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1365,
+      "nd": 175,
+      "z": 8.410366563608612,
+      "p_two_sided": 4.087313162706745e-17
+     },
+     "tau_b_intersection": {
+      "tau": 0.8625792811839323,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 881,
+      "nd": 65,
+      "z": 8.253238035791039,
+      "p_two_sided": 1.541595698131145e-16
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "barber shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q10": {
+     "overlap": {
+      "@5": 2,
+      "@10": 7,
+      "@20": 19,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6987012987012987,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1308,
+      "nd": 232,
+      "z": 7.604667581884763,
+      "p_two_sided": 2.856371238769594e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.6871035940803383,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 798,
+      "nd": 148,
+      "z": 6.574270494196294,
+      "p_two_sided": 4.889227915252931e-11
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "category",
+     "text": "dentist appointment",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q11": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 18,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.7602693602693603,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1307,
+      "nd": 178,
+      "z": 8.196020757552688,
+      "p_two_sided": 2.4847544834794523e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.795959595959596,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 889,
+      "nd": 101,
+      "z": 7.708467971581611,
+      "p_two_sided": 1.2733706732560281e-14
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "oil change",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q12": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 17,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.7431077694235589,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1391,
+      "nd": 205,
+      "z": 8.164244823396828,
+      "p_two_sided": 3.234523024765155e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.7320044296788483,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 782,
+      "nd": 121,
+      "z": 6.917642957660108,
+      "p_two_sided": 4.59219891126147e-12
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "category",
+     "text": "brake repair",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q13": {
+     "overlap": {
+      "@5": 4,
+      "@10": 5,
+      "@20": 16,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.6403508771929824,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1309,
+      "nd": 287,
+      "z": 7.035293599925429,
+      "p_two_sided": 1.9884185789898618e-12
+     },
+     "tau_b_intersection": {
+      "tau": 0.6389811738648948,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 740,
+      "nd": 163,
+      "z": 6.0385476347502,
+      "p_two_sided": 1.5550752319625084e-09
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "terrible service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q14": {
+     "overlap": {
+      "@5": 4,
+      "@10": 7,
+      "@20": 15,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.5792207792207792,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1216,
+      "nd": 324,
+      "z": 6.304241155242758,
+      "p_two_sided": 2.8960927579718035e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.653276955602537,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 782,
+      "nd": 164,
+      "z": 6.250614100635861,
+      "p_two_sided": 4.088419195811987e-10
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "rude staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q15": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 19,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.7389610389610389,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1339,
+      "nd": 201,
+      "z": 8.042854747383698,
+      "p_two_sided": 8.776934281601052e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.8710359408033826,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 885,
+      "nd": 61,
+      "z": 8.334152134181148,
+      "p_two_sided": 7.80555077922434e-17
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "friendly staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q16": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 16,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.7120894479385046,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1225,
+      "nd": 206,
+      "z": 7.602149397411669,
+      "p_two_sided": 2.9125221452208134e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7333333333333333,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 897,
+      "nd": 138,
+      "z": 7.186327223907368,
+      "p_two_sided": 6.655742075887853e-13
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "slow service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q17": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 18,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6675324675324675,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1284,
+      "nd": 256,
+      "z": 7.265425905369457,
+      "p_two_sided": 3.718647224551539e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.6723044397463002,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 791,
+      "nd": 155,
+      "z": 6.432670822013605,
+      "p_two_sided": 1.2538099522206126e-10
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "long wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q18": {
+     "overlap": {
+      "@5": 5,
+      "@10": 8,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.8514285714285714,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1134,
+      "nd": 91,
+      "z": 8.724546652159887,
+      "p_two_sided": 2.672491002135395e-18
+     },
+     "tau_b_intersection": {
+      "tau": 0.8514285714285714,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1134,
+      "nd": 91,
+      "z": 8.724546652159887,
+      "p_two_sided": 2.672491002135395e-18
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "overpriced",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q19": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 18,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.6854636591478697,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1345,
+      "nd": 251,
+      "z": 7.530930722425068,
+      "p_two_sided": 5.0379914190191914e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7120708748615725,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 773,
+      "nd": 130,
+      "z": 6.729265388465128,
+      "p_two_sided": 1.705217912784931e-11
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "best pizza in town",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q20": {
+     "overlap": {
+      "@5": 3,
+      "@10": 7,
+      "@20": 16,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.7025974025974026,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1311,
+      "nd": 229,
+      "z": 7.647072791449176,
+      "p_two_sided": 2.056059496136088e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7124735729386892,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 810,
+      "nd": 136,
+      "z": 6.817012789366618,
+      "p_two_sided": 9.295299250628741e-12
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "worst experience ever",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q21": {
+     "overlap": {
+      "@5": 5,
+      "@10": 8,
+      "@20": 15,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.5576441102756893,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1243,
+      "nd": 353,
+      "z": 6.126625542009425,
+      "p_two_sided": 8.976238647408478e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.5681063122923588,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 708,
+      "nd": 195,
+      "z": 5.368760722056937,
+      "p_two_sided": 7.927951895998593e-08
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "cold food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q22": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 18,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.6894049346879536,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1164,
+      "nd": 214,
+      "z": 7.287167662183628,
+      "p_two_sided": 3.165388932223375e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.6725254394079556,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 904,
+      "nd": 177,
+      "z": 6.666919654325743,
+      "p_two_sided": 2.612280041712471e-11
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "wrong order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q23": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 18,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.6902356902356902,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1255,
+      "nd": 230,
+      "z": 7.441028588566435,
+      "p_two_sided": 9.990432103694203e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.6707070707070707,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 827,
+      "nd": 163,
+      "z": 6.495460321231206,
+      "p_two_sided": 8.277990384200572e-11
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "dirty bathroom",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q24": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 15,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8159879336349924,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1204,
+      "nd": 122,
+      "z": 8.538144577323596,
+      "p_two_sided": 1.3639419821421037e-17
+     },
+     "tau_b_intersection": {
+      "tau": 0.8120567375886525,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1022,
+      "nd": 106,
+      "z": 8.141444969104619,
+      "p_two_sided": 3.905880622868826e-16
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "great atmosphere",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q25": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 16,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.683599419448476,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 218,
+      "z": 7.22580203976524,
+      "p_two_sided": 4.981529620370502e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.6891766882516188,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 913,
+      "nd": 168,
+      "z": 6.831987816331058,
+      "p_two_sided": 8.374596435403094e-12
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "attribute",
+     "text": "gluten free pancakes",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q26": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 17,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.740041928721174,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1245,
+      "nd": 186,
+      "z": 7.900565467967573,
+      "p_two_sided": 2.7764096516434065e-15
+     },
+     "tau_b_intersection": {
+      "tau": 0.7468599033816425,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 904,
+      "nd": 131,
+      "z": 7.318881349249532,
+      "p_two_sided": 2.5004655490756115e-13
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "attribute",
+     "text": "vegan options",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q27": {
+     "overlap": {
+      "@5": 3,
+      "@10": 7,
+      "@20": 14,
+      "@50": 42
+     },
+     "tau_b_union": {
+      "tau": 0.5753176043557169,
+      "n": 58,
+      "n0": 1653,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1302,
+      "nd": 351,
+      "z": 6.379294616100832,
+      "p_two_sided": 1.779054974282542e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.586527293844367,
+      "n": 42,
+      "n0": 861,
+      "n1": 0,
+      "n2": 0,
+      "nc": 683,
+      "nd": 178,
+      "z": 5.4728816131851294,
+      "p_two_sided": 4.427759237911798e-08
+     },
+     "n_union": 58,
+     "n_intersection": 42,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "dog friendly patio",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q28": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 17,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.8672699849170438,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1238,
+      "nd": 88,
+      "z": 9.074737767026004,
+      "p_two_sided": 1.1395156267608208e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8705673758865248,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1055,
+      "nd": 73,
+      "z": 8.728055632817398,
+      "p_two_sided": 2.5908820760233044e-18
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "outdoor seating",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q29": {
+     "overlap": {
+      "@5": 3,
+      "@10": 9,
+      "@20": 17,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.7158249158249158,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1274,
+      "nd": 211,
+      "z": 7.716891111849873,
+      "p_two_sided": 1.1920140136379726e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7313131313131314,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 857,
+      "nd": 133,
+      "z": 7.082399506884627,
+      "p_two_sided": 1.4167950048449226e-12
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "attribute",
+     "text": "drive thru",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q30": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.7606516290726817,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1405,
+      "nd": 191,
+      "z": 8.356992593257798,
+      "p_two_sided": 6.43373380417848e-17
+     },
+     "tau_b_intersection": {
+      "tau": 0.8471760797342193,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 834,
+      "nd": 69,
+      "z": 8.006046690786661,
+      "p_two_sided": 1.1845476767535645e-15
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "free wifi",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q31": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 17,
+      "@50": 40
+     },
+     "tau_b_union": {
+      "tau": 0.592090395480226,
+      "n": 60,
+      "n0": 1770,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1409,
+      "nd": 361,
+      "z": 6.684068587421581,
+      "p_two_sided": 2.3239795007198953e-11
+     },
+     "tau_b_intersection": {
+      "tau": 0.5897435897435898,
+      "n": 40,
+      "n0": 780,
+      "n1": 0,
+      "n2": 0,
+      "nc": 620,
+      "nd": 160,
+      "z": 5.359475897926259,
+      "p_two_sided": 8.346372762565244e-08
+     },
+     "n_union": 60,
+     "n_intersection": 40,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "happy hour",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q32": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.7822931785195936,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1228,
+      "nd": 150,
+      "z": 8.269017620877843,
+      "p_two_sided": 1.350673077356849e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.8038852913968547,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 975,
+      "nd": 106,
+      "z": 7.969124043478777,
+      "p_two_sided": 1.5980299770297447e-15
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "attribute",
+     "text": "kid friendly",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q33": {
+     "overlap": {
+      "@5": 3,
+      "@10": 10,
+      "@20": 18,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.8287373004354136,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1260,
+      "nd": 118,
+      "z": 8.759942600224951,
+      "p_two_sided": 1.9534982419497824e-18
+     },
+     "tau_b_intersection": {
+      "tau": 0.8408880666049954,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 995,
+      "nd": 86,
+      "z": 8.335942181268365,
+      "p_two_sided": 7.688348569107626e-17
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "wheelchair accessible",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q34": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 19,
+      "@50": 45
+     },
+     "tau_b_union": {
+      "tau": 0.767003367003367,
+      "n": 55,
+      "n0": 1485,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1312,
+      "nd": 173,
+      "z": 8.26861615841675,
+      "p_two_sided": 1.355228247867889e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.8,
+      "n": 45,
+      "n0": 990,
+      "n1": 0,
+      "n2": 0,
+      "nc": 891,
+      "nd": 99,
+      "z": 7.747597250625173,
+      "p_two_sided": 9.364760801633917e-15
+     },
+     "n_union": 55,
+     "n_intersection": 45,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "takeout order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q35": {
+     "overlap": {
+      "@5": 3,
+      "@10": 9,
+      "@20": 17,
+      "@50": 39
+     },
+     "tau_b_union": {
+      "tau": 0.6174863387978142,
+      "n": 61,
+      "n0": 1830,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1480,
+      "nd": 350,
+      "z": 7.031893633679624,
+      "p_two_sided": 2.037491090475287e-12
+     },
+     "tau_b_intersection": {
+      "tau": 0.6734143049932524,
+      "n": 39,
+      "n0": 741,
+      "n1": 0,
+      "n2": 0,
+      "nc": 620,
+      "nd": 121,
+      "z": 6.036339395518438,
+      "p_two_sided": 1.576495017617799e-09
+     },
+     "n_union": 61,
+     "n_intersection": 39,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q36": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 16,
+      "@50": 34
+     },
+     "tau_b_union": {
+      "tau": 0.5263403263403263,
+      "n": 66,
+      "n0": 2145,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1637,
+      "nd": 508,
+      "z": 6.248003509410526,
+      "p_two_sided": 4.157323374984468e-10
+     },
+     "tau_b_intersection": {
+      "tau": 0.6827094474153298,
+      "n": 34,
+      "n0": 561,
+      "n1": 0,
+      "n2": 0,
+      "nc": 472,
+      "nd": 89,
+      "z": 5.677761792810545,
+      "p_two_sided": 1.3646857351449131e-08
+     },
+     "n_union": 66,
+     "n_intersection": 34,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q37": {
+     "overlap": {
+      "@5": 3,
+      "@10": 6,
+      "@20": 12,
+      "@50": 37
+     },
+     "tau_b_union": {
+      "tau": 0.49615975422427033,
+      "n": 63,
+      "n0": 1953,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1461,
+      "nd": 492,
+      "z": 5.747225827022359,
+      "p_two_sided": 9.071953219456572e-09
+     },
+     "tau_b_intersection": {
+      "tau": 0.4984984984984985,
+      "n": 37,
+      "n0": 666,
+      "n1": 0,
+      "n2": 0,
+      "nc": 499,
+      "nd": 167,
+      "z": 4.34218855381476,
+      "p_two_sided": 1.410703818429544e-05
+     },
+     "n_union": 63,
+     "n_intersection": 37,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "df_spectrum",
+     "text": "staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q38": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 14,
+      "@50": 33
+     },
+     "tau_b_union": {
+      "tau": 0.40388964269561284,
+      "n": 67,
+      "n0": 2211,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1552,
+      "nd": 659,
+      "z": 4.832489757286402,
+      "p_two_sided": 1.3483605121129963e-06
+     },
+     "tau_b_intersection": {
+      "tau": 0.5606060606060606,
+      "n": 33,
+      "n0": 528,
+      "n1": 0,
+      "n2": 0,
+      "nc": 412,
+      "nd": 116,
+      "z": 4.586346156009168,
+      "p_two_sided": 4.5107050253795535e-06
+     },
+     "n_union": 67,
+     "n_intersection": 33,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q39": {
+     "overlap": {
+      "@5": 3,
+      "@10": 7,
+      "@20": 14,
+      "@50": 36
+     },
+     "tau_b_union": {
+      "tau": 0.4255952380952381,
+      "n": 64,
+      "n0": 2016,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1437,
+      "nd": 579,
+      "z": 4.970927833221224,
+      "p_two_sided": 6.663325020338583e-07
+     },
+     "tau_b_intersection": {
+      "tau": 0.4666666666666667,
+      "n": 36,
+      "n0": 630,
+      "n1": 0,
+      "n2": 0,
+      "nc": 462,
+      "nd": 168,
+      "z": 4.004542874831487,
+      "p_two_sided": 6.21375210464259e-05
+     },
+     "n_union": 64,
+     "n_intersection": 36,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "salad",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q40": {
+     "overlap": {
+      "@5": 4,
+      "@10": 9,
+      "@20": 16,
+      "@50": 42
+     },
+     "tau_b_union": {
+      "tau": 0.6297640653357531,
+      "n": 58,
+      "n0": 1653,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1347,
+      "nd": 306,
+      "z": 6.983013349485769,
+      "p_two_sided": 2.889149464681838e-12
+     },
+     "tau_b_intersection": {
+      "tau": 0.6469221835075494,
+      "n": 42,
+      "n0": 861,
+      "n1": 0,
+      "n2": 0,
+      "nc": 709,
+      "nd": 152,
+      "z": 6.036425858503201,
+      "p_two_sided": 1.5756509494270731e-09
+     },
+     "n_union": 58,
+     "n_intersection": 42,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "burger",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q41": {
+     "overlap": {
+      "@5": 4,
+      "@10": 7,
+      "@20": 17,
+      "@50": 42
+     },
+     "tau_b_union": {
+      "tau": 0.6757410768300061,
+      "n": 58,
+      "n0": 1653,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1385,
+      "nd": 268,
+      "z": 7.492820279899716,
+      "p_two_sided": 6.740917642888739e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.7653890824622532,
+      "n": 42,
+      "n0": 861,
+      "n1": 0,
+      "n2": 0,
+      "nc": 760,
+      "nd": 101,
+      "z": 7.141839570473268,
+      "p_two_sided": 9.209004494479085e-13
+     },
+     "n_union": 58,
+     "n_intersection": 42,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "df_spectrum",
+     "text": "rude",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q42": {
+     "overlap": {
+      "@5": 3,
+      "@10": 9,
+      "@20": 17,
+      "@50": 43
+     },
+     "tau_b_union": {
+      "tau": 0.6791979949874687,
+      "n": 57,
+      "n0": 1596,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1340,
+      "nd": 256,
+      "z": 7.462092233189007,
+      "p_two_sided": 8.51592360986244e-14
+     },
+     "tau_b_intersection": {
+      "tau": 0.760797342192691,
+      "n": 43,
+      "n0": 903,
+      "n1": 0,
+      "n2": 0,
+      "nc": 795,
+      "nd": 108,
+      "z": 7.189743890941746,
+      "p_two_sided": 6.491296866983373e-13
+     },
+     "n_union": 57,
+     "n_intersection": 43,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "df_spectrum",
+     "text": "patio",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q43": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.8666666666666667,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1190,
+      "nd": 85,
+      "z": 8.975043279514527,
+      "p_two_sided": 2.8324041456934235e-19
+     },
+     "tau_b_intersection": {
+      "tau": 0.8673469387755102,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1098,
+      "nd": 78,
+      "z": 8.792232283321203,
+      "p_two_sided": 1.466172465400941e-18
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "espresso",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q44": {
+     "overlap": {
+      "@5": 1,
+      "@10": 1,
+      "@20": 1,
+      "@50": 1
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 1,
+     "n_intersection": 1,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "xylophone",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q45": {
+     "overlap": {
+      "@5": 1,
+      "@10": 4,
+      "@20": 8,
+      "@50": 14
+     },
+     "tau_b_union": {
+      "tau": -0.11515869310799032,
+      "n": 86,
+      "n0": 3655,
+      "n1": 0,
+      "n2": 136,
+      "nc": 1553,
+      "nd": 1966,
+      "z": null,
+      "p_two_sided": null
+     },
+     "tau_b_intersection": {
+      "tau": 0.27472527472527475,
+      "n": 14,
+      "n0": 91,
+      "n1": 0,
+      "n2": 0,
+      "nc": 58,
+      "nd": 33,
+      "z": 1.3686222536283974,
+      "p_two_sided": 0.1711173841190133
+     },
+     "n_union": 86,
+     "n_intersection": 14,
+     "n_missing_a": 0,
+     "n_missing_b": 17,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "the and of",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q46": {
+     "overlap": {
+      "@5": 3,
+      "@10": 3,
+      "@20": 6,
+      "@50": 20
+     },
+     "tau_b_union": {
+      "tau": -0.1061058695937837,
+      "n": 80,
+      "n0": 3160,
+      "n1": 0,
+      "n2": 136,
+      "nc": 1348,
+      "nd": 1676,
+      "z": null,
+      "p_two_sided": null
+     },
+     "tau_b_intersection": {
+      "tau": 0.14736842105263157,
+      "n": 20,
+      "n0": 190,
+      "n1": 0,
+      "n2": 0,
+      "nc": 109,
+      "nd": 81,
+      "z": 0.9084399583322702,
+      "p_two_sided": 0.3636458223803357
+     },
+     "n_union": 80,
+     "n_intersection": 20,
+     "n_missing_a": 0,
+     "n_missing_b": 17,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "the food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q47": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 16,
+      "@50": 39
+     },
+     "tau_b_union": {
+      "tau": 0.4448087431693989,
+      "n": 61,
+      "n0": 1830,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1322,
+      "nd": 508,
+      "z": 5.065452582137357,
+      "p_two_sided": 4.0743119048141135e-07
+     },
+     "tau_b_intersection": {
+      "tau": 0.6005398110661269,
+      "n": 39,
+      "n0": 741,
+      "n1": 0,
+      "n2": 0,
+      "nc": 593,
+      "nd": 148,
+      "z": 5.383108278568547,
+      "p_two_sided": 7.321046781266053e-08
+     },
+     "n_union": 61,
+     "n_intersection": 39,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza and pasta",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q48": {
+     "overlap": {
+      "@5": 4,
+      "@10": 8,
+      "@20": 18,
+      "@50": 44
+     },
+     "tau_b_union": {
+      "tau": 0.6688311688311688,
+      "n": 56,
+      "n0": 1540,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1285,
+      "nd": 255,
+      "z": 7.279560975224261,
+      "p_two_sided": 3.3490827169905413e-13
+     },
+     "tau_b_intersection": {
+      "tau": 0.718816067653277,
+      "n": 44,
+      "n0": 946,
+      "n1": 0,
+      "n2": 0,
+      "nc": 813,
+      "nd": 133,
+      "z": 6.8776983631592,
+      "p_two_sided": 6.082729267904596e-12
+     },
+     "n_union": 56,
+     "n_intersection": 44,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q49": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.7721872816212438,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1268,
+      "nd": 163,
+      "z": 8.243743949106863,
+      "p_two_sided": 1.6690412489876502e-16
+     },
+     "tau_b_intersection": {
+      "tau": 0.7990338164251207,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 931,
+      "nd": 104,
+      "z": 7.830161546997882,
+      "p_two_sided": 4.872434892165451e-15
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "don't waste your money",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q50": {
+     "overlap": {
+      "@5": 0,
+      "@10": 0,
+      "@20": 0,
+      "@50": 0
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 0,
+     "n_intersection": 0,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "zzyzx",
+     "df_band": "df = 0 (零命中)"
+    }
+   }
+  },
+  "E11": {
+   "pair": [
+    "lucene_bm25_ours_tok",
+    "lucene_bm25_std"
+   ],
+   "note": "同为 Lucene BM25，只换分词器（我们的 custom vs Lucene StandardAnalyzer）",
+   "aggregate": [
+    {
+     "slice": "全部查询",
+     "n_queries": 50,
+     "overlap@5": 4.7,
+     "overlap@10": 9.18,
+     "overlap@20": 18.72,
+     "overlap@50": 46.92,
+     "tau_union": 0.9449,
+     "tau_intersection": 0.951,
+     "top1_same_rate": 0.94
+    },
+    {
+     "slice": "axis=aspect",
+     "n_queries": 12,
+     "overlap@5": 4.8333,
+     "overlap@10": 9.5833,
+     "overlap@20": 19.5,
+     "overlap@50": 48.6667,
+     "tau_union": 0.9545,
+     "tau_intersection": 0.9644,
+     "top1_same_rate": 0.9167
+    },
+    {
+     "slice": "axis=attribute",
+     "n_queries": 10,
+     "overlap@5": 5.0,
+     "overlap@10": 9.7,
+     "overlap@20": 19.6,
+     "overlap@50": 49.2,
+     "tau_union": 0.966,
+     "tau_intersection": 0.968,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=category",
+     "n_queries": 12,
+     "overlap@5": 5.0,
+     "overlap@10": 9.5,
+     "overlap@20": 19.75,
+     "overlap@50": 49.1667,
+     "tau_union": 0.9631,
+     "tau_intersection": 0.9667,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=df_spectrum",
+     "n_queries": 10,
+     "overlap@5": 4.5,
+     "overlap@10": 8.7,
+     "overlap@20": 17.7,
+     "overlap@50": 44.3,
+     "tau_union": 0.9335,
+     "tau_intersection": 0.9382,
+     "top1_same_rate": 1.0
+    },
+    {
+     "slice": "axis=edge",
+     "n_queries": 6,
+     "overlap@5": 3.6667,
+     "overlap@10": 7.6667,
+     "overlap@20": 15.3333,
+     "overlap@50": 39.5,
+     "tau_union": 0.8568,
+     "tau_intersection": 0.8703,
+     "top1_same_rate": 0.6667
+    }
+   ],
+   "per_query": {
+    "Q01": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9294117647058824,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1230,
+      "nd": 45,
+      "z": 9.624820168529153,
+      "p_two_sided": 6.281670522416867e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9285714285714286,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1134,
+      "nd": 42,
+      "z": 9.412860444496816,
+      "p_two_sided": 4.828150291229106e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q02": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9027450980392157,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 62,
+      "z": 9.348664990697937,
+      "p_two_sided": 8.876095079013472e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.923469387755102,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1131,
+      "nd": 45,
+      "z": 9.361141431065516,
+      "p_two_sided": 7.887987370905145e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "sushi",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q03": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9562594268476622,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1297,
+      "nd": 29,
+      "z": 10.005884772686063,
+      "p_two_sided": 1.436022349006433e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9645390070921985,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1108,
+      "nd": 20,
+      "z": 9.670187910901557,
+      "p_two_sided": 4.0363626102508114e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "thai food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q04": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9698340874811463,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1306,
+      "nd": 20,
+      "z": 10.147924146430817,
+      "p_two_sided": 3.384865085616009e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9769503546099291,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1115,
+      "nd": 13,
+      "z": 9.79462047593154,
+      "p_two_sided": 1.1874250120215804e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "taco tuesday",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q05": {
+     "overlap": {
+      "@5": 5,
+      "@10": 8,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9461224489795919,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1192,
+      "nd": 33,
+      "z": 9.694870153263,
+      "p_two_sided": 3.1704069324787217e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9461224489795919,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1192,
+      "nd": 33,
+      "z": 9.694870153263,
+      "p_two_sided": 3.1704069324787217e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "coffee shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q06": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9890196078431372,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1268,
+      "nd": 7,
+      "z": 10.242108213093049,
+      "p_two_sided": 1.284073480802413e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9914965986394558,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1171,
+      "nd": 5,
+      "z": 10.050728276816198,
+      "p_two_sided": 9.119097386608885e-24
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "breakfast burrito",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q07": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9657142857142857,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1204,
+      "nd": 21,
+      "z": 9.895626739698127,
+      "p_two_sided": 4.348778420416752e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9657142857142857,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1204,
+      "nd": 21,
+      "z": 9.895626739698127,
+      "p_two_sided": 4.348778420416752e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "ice cream",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q08": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9701960784313726,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1256,
+      "nd": 19,
+      "z": 10.04717514638866,
+      "p_two_sided": 9.453858521177823e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9710884353741497,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1159,
+      "nd": 17,
+      "z": 9.843852223090995,
+      "p_two_sided": 7.286615772629905e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "bbq chicken",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q09": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9890196078431372,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1268,
+      "nd": 7,
+      "z": 10.242108213093049,
+      "p_two_sided": 1.284073480802413e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9931972789115646,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1172,
+      "nd": 4,
+      "z": 10.067967947959966,
+      "p_two_sided": 7.654314605712433e-24
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "barber shop",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q10": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9640816326530612,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1203,
+      "nd": 22,
+      "z": 9.878897024161866,
+      "p_two_sided": 5.13954801300118e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9640816326530612,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1203,
+      "nd": 22,
+      "z": 9.878897024161866,
+      "p_two_sided": 5.13954801300118e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "dentist appointment",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q11": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9874509803921568,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1267,
+      "nd": 8,
+      "z": 10.225863790867683,
+      "p_two_sided": 1.5186791327468029e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9880952380952381,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1169,
+      "nd": 7,
+      "z": 10.016248934528665,
+      "p_two_sided": 1.2931810908738859e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "oil change",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q12": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.986938775510204,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1217,
+      "nd": 8,
+      "z": 10.113113041669514,
+      "p_two_sided": 4.832388883530733e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.986938775510204,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1217,
+      "nd": 8,
+      "z": 10.113113041669514,
+      "p_two_sided": 4.832388883530733e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "category",
+     "text": "brake repair",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q13": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9457013574660633,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1290,
+      "nd": 36,
+      "z": 9.89540970421792,
+      "p_two_sided": 4.3582219622155006e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9556737588652482,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1103,
+      "nd": 25,
+      "z": 9.581307507308711,
+      "p_two_sided": 9.582405110993786e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "terrible service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q14": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9673469387755103,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1205,
+      "nd": 20,
+      "z": 9.912356455234388,
+      "p_two_sided": 3.6786566262939074e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9673469387755103,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1205,
+      "nd": 20,
+      "z": 9.912356455234388,
+      "p_two_sided": 3.6786566262939074e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "rude staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q15": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 47
+     },
+     "tau_b_union": {
+      "tau": 0.95355587808418,
+      "n": 53,
+      "n0": 1378,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1346,
+      "nd": 32,
+      "z": 10.079303482220302,
+      "p_two_sided": 6.820790246295353e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9907493061979649,
+      "n": 47,
+      "n0": 1081,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1076,
+      "nd": 5,
+      "z": 9.821555639316191,
+      "p_two_sided": 9.092936106064123e-23
+     },
+     "n_union": 53,
+     "n_intersection": 47,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "aspect",
+     "text": "friendly staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q16": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9450980392156862,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1240,
+      "nd": 35,
+      "z": 9.787264390782811,
+      "p_two_sided": 1.2770420611487573e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9489795918367347,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1146,
+      "nd": 30,
+      "z": 9.619736498222021,
+      "p_two_sided": 6.600001819416242e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "slow service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q17": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9457013574660633,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1290,
+      "nd": 36,
+      "z": 9.89540970421792,
+      "p_two_sided": 4.3582219622155006e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9609929078014184,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1106,
+      "nd": 22,
+      "z": 9.634635749464419,
+      "p_two_sided": 5.709412690819282e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "long wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q18": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9738775510204082,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1209,
+      "nd": 16,
+      "z": 9.97927531737943,
+      "p_two_sided": 1.878335892201207e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9738775510204082,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1209,
+      "nd": 16,
+      "z": 9.97927531737943,
+      "p_two_sided": 1.878335892201207e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "overpriced",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q19": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9562594268476622,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1297,
+      "nd": 29,
+      "z": 10.005884772686063,
+      "p_two_sided": 1.436022349006433e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9787234042553191,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1116,
+      "nd": 12,
+      "z": 9.812396556650109,
+      "p_two_sided": 9.957508722775906e-23
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "best pizza in town",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q20": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9309803921568628,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1231,
+      "nd": 44,
+      "z": 9.64106459075452,
+      "p_two_sided": 5.362887577018338e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.935374149659864,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1138,
+      "nd": 38,
+      "z": 9.481819129071885,
+      "p_two_sided": 2.4988811665894973e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "worst experience ever",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q21": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9577677224736049,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1298,
+      "nd": 28,
+      "z": 10.02166692532437,
+      "p_two_sided": 1.2242054522311057e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9663120567375887,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1109,
+      "nd": 19,
+      "z": 9.687963991620126,
+      "p_two_sided": 3.392233737824459e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "cold food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q22": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9562594268476622,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1297,
+      "nd": 29,
+      "z": 10.005884772686063,
+      "p_two_sided": 1.436022349006433e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9609929078014184,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1106,
+      "nd": 22,
+      "z": 9.634635749464419,
+      "p_two_sided": 5.709412690819282e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "wrong order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q23": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9624489795918367,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1202,
+      "nd": 23,
+      "z": 9.862167308625606,
+      "p_two_sided": 6.072425538987234e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9624489795918367,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1202,
+      "nd": 23,
+      "z": 9.862167308625606,
+      "p_two_sided": 6.072425538987234e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "dirty bathroom",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q24": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9592156862745098,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1249,
+      "nd": 26,
+      "z": 9.933464190811101,
+      "p_two_sided": 2.977283959885734e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9710884353741497,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1159,
+      "nd": 17,
+      "z": 9.843852223090995,
+      "p_two_sided": 7.286615772629905e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "aspect",
+     "text": "great atmosphere",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q25": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9622926093514329,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1301,
+      "nd": 25,
+      "z": 10.069013383239287,
+      "p_two_sided": 7.573396577696587e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9645390070921985,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1108,
+      "nd": 20,
+      "z": 9.670187910901557,
+      "p_two_sided": 4.0363626102508114e-22
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "gluten free pancakes",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q26": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9639215686274509,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1252,
+      "nd": 23,
+      "z": 9.982197457487198,
+      "p_two_sided": 1.8238213379924688e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9625850340136054,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1154,
+      "nd": 22,
+      "z": 9.75765386737216,
+      "p_two_sided": 1.7106677236861292e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "vegan options",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q27": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9461224489795919,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1192,
+      "nd": 33,
+      "z": 9.694870153263,
+      "p_two_sided": 3.1704069324787217e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9461224489795919,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1192,
+      "nd": 33,
+      "z": 9.694870153263,
+      "p_two_sided": 3.1704069324787217e-22
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "dog friendly patio",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q28": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9804081632653061,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 12,
+      "z": 10.046194179524472,
+      "p_two_sided": 9.548405981134043e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "outdoor seating",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q29": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9670588235294117,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1254,
+      "nd": 21,
+      "z": 10.01468630193793,
+      "p_two_sided": 1.3137802867802987e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9744897959183674,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1161,
+      "nd": 15,
+      "z": 9.878331565378527,
+      "p_two_sided": 5.168627674410223e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "drive thru",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q30": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9733333333333334,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1258,
+      "nd": 17,
+      "z": 10.079663990839393,
+      "p_two_sided": 6.795811737358211e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9727891156462585,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1160,
+      "nd": 16,
+      "z": 9.861091894234761,
+      "p_two_sided": 6.137824560296724e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "free wifi",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q31": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9608163265306122,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1201,
+      "nd": 24,
+      "z": 9.845437593089345,
+      "p_two_sided": 7.172641018890838e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9608163265306122,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1201,
+      "nd": 24,
+      "z": 9.845437593089345,
+      "p_two_sided": 7.172641018890838e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "happy hour",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q32": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9733333333333334,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1258,
+      "nd": 17,
+      "z": 10.079663990839393,
+      "p_two_sided": 6.795811737358211e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9761904761904762,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1162,
+      "nd": 14,
+      "z": 9.895571236522295,
+      "p_two_sided": 4.35119151768091e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "kid friendly",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q33": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9885714285714285,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 7,
+      "z": 10.129842757205775,
+      "p_two_sided": 4.0730389746928474e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9885714285714285,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 7,
+      "z": 10.129842757205775,
+      "p_two_sided": 4.0730389746928474e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "wheelchair accessible",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q34": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9441930618401206,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1289,
+      "nd": 37,
+      "z": 9.879627551579615,
+      "p_two_sided": 5.102219116108922e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9539007092198581,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1102,
+      "nd": 26,
+      "z": 9.563531426590142,
+      "p_two_sided": 1.1380566924551905e-21
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "attribute",
+     "text": "takeout order",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q35": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 48
+     },
+     "tau_b_union": {
+      "tau": 0.9155354449472096,
+      "n": 52,
+      "n0": 1326,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1270,
+      "nd": 56,
+      "z": 9.579766651451799,
+      "p_two_sided": 9.72644385558177e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9219858156028369,
+      "n": 48,
+      "n0": 1128,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1084,
+      "nd": 44,
+      "z": 9.2435619736559,
+      "p_two_sided": 2.3842503002407924e-20
+     },
+     "n_union": 52,
+     "n_intersection": 48,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q36": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 18,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.916734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1174,
+      "nd": 51,
+      "z": 9.393735273610309,
+      "p_two_sided": 5.790932838321697e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.916734693877551,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1174,
+      "nd": 51,
+      "z": 9.393735273610309,
+      "p_two_sided": 5.790932838321697e-21
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "service",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q37": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9482352941176471,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1242,
+      "nd": 33,
+      "z": 9.819753235233541,
+      "p_two_sided": 9.256986439642973e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9472789115646258,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1145,
+      "nd": 31,
+      "z": 9.602496827078255,
+      "p_two_sided": 7.8030856423881465e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "staff",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q38": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9341176470588235,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1233,
+      "nd": 42,
+      "z": 9.67355343520525,
+      "p_two_sided": 3.905758985243714e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9336734693877551,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1137,
+      "nd": 39,
+      "z": 9.464579457928119,
+      "p_two_sided": 2.9474468149096974e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "wait",
+     "df_band": "3000 <= df < 10000 (高频)"
+    },
+    "Q39": {
+     "overlap": {
+      "@5": 5,
+      "@10": 8,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9450980392156862,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1240,
+      "nd": 35,
+      "z": 9.787264390782811,
+      "p_two_sided": 1.2770420611487573e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.95578231292517,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1150,
+      "nd": 26,
+      "z": 9.68869518279709,
+      "p_two_sided": 3.368038947326781e-22
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "salad",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q40": {
+     "overlap": {
+      "@5": 5,
+      "@10": 9,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9027450980392157,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1213,
+      "nd": 62,
+      "z": 9.348664990697937,
+      "p_two_sided": 8.876095079013472e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9115646258503401,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1124,
+      "nd": 52,
+      "z": 9.240463733059146,
+      "p_two_sided": 2.4543121121620023e-20
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "burger",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q41": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9090196078431373,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1217,
+      "nd": 58,
+      "z": 9.4136426795994,
+      "p_two_sided": 4.792339638631362e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.9149659863945578,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1126,
+      "nd": 50,
+      "z": 9.27494307534668,
+      "p_two_sided": 1.7771391219727127e-20
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 1,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "rude",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q42": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9576470588235294,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1248,
+      "nd": 27,
+      "z": 9.917219768585735,
+      "p_two_sided": 3.503799365451063e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9693877551020408,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1158,
+      "nd": 18,
+      "z": 9.826612551947226,
+      "p_two_sided": 8.64787591213927e-23
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "patio",
+     "df_band": "300 <= df < 1000 (低频)"
+    },
+    "Q43": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9722448979591837,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1208,
+      "nd": 17,
+      "z": 9.96254560184317,
+      "p_two_sided": 2.2229661292758403e-23
+     },
+     "tau_b_intersection": {
+      "tau": 0.9722448979591837,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1208,
+      "nd": 17,
+      "z": 9.96254560184317,
+      "p_two_sided": 2.2229661292758403e-23
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "espresso",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q44": {
+     "overlap": {
+      "@5": 1,
+      "@10": 1,
+      "@20": 1,
+      "@50": 1
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 1,
+     "n_intersection": 1,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "df_spectrum",
+     "text": "xylophone",
+     "df_band": "0 < df < 300 (稀有)"
+    },
+    "Q45": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 17,
+      "@50": 46
+     },
+     "tau_b_union": {
+      "tau": 0.8141160027952481,
+      "n": 54,
+      "n0": 1431,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1298,
+      "nd": 133,
+      "z": 8.69136805494072,
+      "p_two_sided": 3.581008678173912e-18
+     },
+     "tau_b_intersection": {
+      "tau": 0.8454106280193237,
+      "n": 46,
+      "n0": 1035,
+      "n1": 0,
+      "n2": 0,
+      "nc": 955,
+      "nd": 80,
+      "z": 8.284632833885304,
+      "p_two_sided": 1.1847401611884531e-16
+     },
+     "n_union": 54,
+     "n_intersection": 46,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "the and of",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q46": {
+     "overlap": {
+      "@5": 4,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.923265306122449,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1178,
+      "nd": 47,
+      "z": 9.460654135755352,
+      "p_two_sided": 3.060227213394882e-21
+     },
+     "tau_b_intersection": {
+      "tau": 0.923265306122449,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1178,
+      "nd": 47,
+      "z": 9.460654135755352,
+      "p_two_sided": 3.060227213394882e-21
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "the food",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q47": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 20,
+      "@50": 50
+     },
+     "tau_b_union": {
+      "tau": 0.9885714285714285,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 7,
+      "z": 10.129842757205775,
+      "p_two_sided": 4.0730389746928474e-24
+     },
+     "tau_b_intersection": {
+      "tau": 0.9885714285714285,
+      "n": 50,
+      "n0": 1225,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1218,
+      "nd": 7,
+      "z": 10.129842757205775,
+      "p_two_sided": 4.0730389746928474e-24
+     },
+     "n_union": 50,
+     "n_intersection": 50,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza and pasta",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q48": {
+     "overlap": {
+      "@5": 5,
+      "@10": 10,
+      "@20": 19,
+      "@50": 49
+     },
+     "tau_b_union": {
+      "tau": 0.9294117647058824,
+      "n": 51,
+      "n0": 1275,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1230,
+      "nd": 45,
+      "z": 9.624820168529153,
+      "p_two_sided": 6.281670522416867e-22
+     },
+     "tau_b_intersection": {
+      "tau": 0.9285714285714286,
+      "n": 49,
+      "n0": 1176,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1134,
+      "nd": 42,
+      "z": 9.412860444496816,
+      "p_two_sided": 4.828150291229106e-21
+     },
+     "n_union": 51,
+     "n_intersection": 49,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "pizza pizza",
+     "df_band": "1000 <= df < 3000 (中频)"
+    },
+    "Q49": {
+     "overlap": {
+      "@5": 4,
+      "@10": 6,
+      "@20": 16,
+      "@50": 42
+     },
+     "tau_b_union": {
+      "tau": 0.6285541439806412,
+      "n": 58,
+      "n0": 1653,
+      "n1": 0,
+      "n2": 0,
+      "nc": 1346,
+      "nd": 307,
+      "z": 6.969597377632771,
+      "p_two_sided": 3.178493059464492e-12
+     },
+     "tau_b_intersection": {
+      "tau": 0.6655052264808362,
+      "n": 42,
+      "n0": 861,
+      "n1": 0,
+      "n2": 0,
+      "nc": 717,
+      "nd": 144,
+      "z": 6.20982408783184,
+      "p_two_sided": 5.304394651414145e-10
+     },
+     "n_union": 58,
+     "n_intersection": 42,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": true,
+     "axis": "edge",
+     "text": "don't waste your money",
+     "df_band": "df >= 10000 (超高频)"
+    },
+    "Q50": {
+     "overlap": {
+      "@5": 0,
+      "@10": 0,
+      "@20": 0,
+      "@50": 0
+     },
+     "tau_b_union": null,
+     "tau_b_intersection": null,
+     "n_union": 0,
+     "n_intersection": 0,
+     "n_missing_a": 0,
+     "n_missing_b": 0,
+     "top1_same": false,
+     "axis": "edge",
+     "text": "zzyzx",
+     "df_band": "df = 0 (零命中)"
+    }
+   }
+  }
+ },
+ "score_check": {
+  "n_compared": 481,
+  "rel_err_dl_exact": {
+   "n": 481,
+   "median": 6.74e-08,
+   "p90": 0.0082270688,
+   "max": 0.033755284
+  },
+  "rel_err_dl_lucene_actual": {
+   "n": 481,
+   "median": 3.09e-08,
+   "p90": 8.02e-08,
+   "max": 2.717e-07
+  },
+  "dl_quantization_loss": {
+   "n": 481,
+   "median": 0.0,
+   "p90": 0.04,
+   "max": 0.0849673203
+  },
+  "duplicate_term_queries": [
+   {
+    "query": "Q48",
+    "text": "pizza pizza",
+    "doc": "Qvy-kB528kr7Gs0aQHnFAA",
+    "tokens": [
+     "pizza",
+     "pizza"
+    ],
+    "score_dedup": 2.63854447879313,
+    "score_with_duplicates": 5.27708895758626,
+    "lucene_actual": 2.6385446,
+    "ratio": 2.0
+   }
+  ],
+  "sample": [
+   {
+    "query": "Q01",
+    "doc": "Qvy-kB528kr7Gs0aQHnFAA",
+    "lucene": 2.6385446,
+    "dl_ours": 49,
+    "dl_lucene": 48.0,
+    "pred_dl_exact": 2.635059592974735,
+    "pred_dl_lucene": 2.63854447879313,
+    "rel_err_exact": 0.0013208065633094756,
+    "rel_err_lucene_dl": 4.593701765517154e-08,
+    "dl_rel_loss": 0.02040816326530612
+   },
+   {
+    "query": "Q01",
+    "doc": "GV2fdSGQIe3dQQnDANIiWA",
+    "lucene": 2.5714777,
+    "dl_ours": 17,
+    "dl_lucene": 17.0,
+    "pred_dl_exact": 2.5714775919277337,
+    "pred_dl_lucene": 2.5714775919277337,
+    "rel_err_exact": 4.202730058565375e-08,
+    "rel_err_lucene_dl": 4.202730058565375e-08,
+    "dl_rel_loss": 0.0
+   },
+   {
+    "query": "Q01",
+    "doc": "KHt_JkAm-6JrKicQqR7nVg",
+    "lucene": 2.5710154,
+    "dl_ours": 34,
+    "dl_lucene": 34.0,
+    "pred_dl_exact": 2.57101519888208,
+    "pred_dl_lucene": 2.57101519888208,
+    "rel_err_exact": 7.822509334307936e-08,
+    "rel_err_lucene_dl": 7.822509334307936e-08,
+    "dl_rel_loss": 0.0
+   },
+   {
+    "query": "Q01",
+    "doc": "HxxD9L1QD2bCcs79EMiWfg",
+    "lucene": 2.5667691,
+    "dl_ours": 53,
+    "dl_lucene": 52.0,
+    "pred_dl_exact": 2.5628124727420136,
+    "pred_dl_lucene": 2.5667690400601497,
+    "rel_err_exact": 0.0015414815683991643,
+    "rel_err_lucene_dl": 2.3352256506599214e-08,
+    "dl_rel_loss": 0.018867924528301886
+   },
+   {
+    "query": "Q01",
+    "doc": "zWsciATjJs1NNgoAoiFsQg",
+    "lucene": 2.5510156,
+    "dl_ours": 57,
+    "dl_lucene": 56.0,
+    "pred_dl_exact": 2.547107433651267,
+    "pred_dl_lucene": 2.551015620503332,
+    "rel_err_exact": 0.0015320040962246695,
+    "rel_err_lucene_dl": 8.037321261838725e-09,
+    "dl_rel_loss": 0.017543859649122806
+   },
+   {
+    "query": "Q01",
+    "doc": "egzVwxc42UXgoCQT9Wl-Kg",
+    "lucene": 2.5395718,
+    "dl_ours": 99,
+    "dl_lucene": 96.0,
+    "pred_dl_exact": 2.531286376499463,
+    "pred_dl_lucene": 2.5395717085671135,
+    "rel_err_exact": 0.003262527761781408,
+    "rel_err_lucene_dl": 3.6003268974438754e-08,
+    "dl_rel_loss": 0.030303030303030304
+   },
+   {
+    "query": "Q01",
+    "doc": "Eq8MXQw6PiE0YlxNtBkJyg",
+    "lucene": 2.538756,
+    "dl_ours": 22,
+    "dl_lucene": 22.0,
+    "pred_dl_exact": 2.5387557787147266,
+    "pred_dl_lucene": 2.5387557787147266,
+    "rel_err_exact": 8.716287552502464e-08,
+    "rel_err_lucene_dl": 8.716287552502464e-08,
+    "dl_rel_loss": 0.0
+   },
+   {
+    "query": "Q01",
+    "doc": "QBqdp5kcnHXBTVdygTz8hQ",
+    "lucene": 2.5318627,
+    "dl_ours": 43,
+    "dl_lucene": 42.0,
+    "pred_dl_exact": 2.527052298703753,
+    "pred_dl_lucene": 2.531862678070612,
+    "rel_err_exact": 0.001899945560336617,
+    "rel_err_lucene_dl": 8.66136543786846e-09,
+    "dl_rel_loss": 0.023255813953488372
+   }
+  ]
+ }
+}

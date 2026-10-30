@@ -1,0 +1,52 @@
+{
+  "tokenizer": "custom",
+  "index_source": "built from corpus",
+  "index_seconds": 10.9,
+  "reviews": 37401,
+  "terms": 38120,
+  "total_tokens": 3783589,
+  "avgdl": 101.1628,
+  "postings": 2491298,
+  "singleton_terms": 15862,
+  "dl_min": 4,
+  "dl_median": 69,
+  "dl_max": 1005,
+  "top_df_terms": [
+    {
+      "term": "and",
+      "df": 33401
+    },
+    {
+      "term": "the",
+      "df": 33073
+    },
+    {
+      "term": "a",
+      "df": 27959
+    },
+    {
+      "term": "to",
+      "df": 27138
+    },
+    {
+      "term": "i",
+      "df": 26856
+    }
+  ],
+  "index_file_mb": 20.0,
+  "manifest_reviews": 37401,
+  "manifest_matches": true,
+  "cross_check_part1": {
+    "part1": {
+      "reviews": 37401,
+      "tokens": 3783589,
+      "types": 38120
+    },
+    "index": {
+      "reviews": 37401,
+      "tokens": 3783589,
+      "types": 38120
+    },
+    "matches": true
+  }
+}

@@ -1,0 +1,3 @@
+# 语料是数据文件，字节必须和 manifest.json 里的 sha256 对得上。
+# 标成 -text 后 git 不再动它的换行符，Windows 上开 autocrlf 也不会把 LF 改成 CRLF。
+data/meridian_id/*.json -text
