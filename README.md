@@ -40,6 +40,7 @@ print(terms)
 - `text_processing/`：大家共用的分词器。
 - `data/meridian_id/`：全组使用的数据。
 - `part1/`：Part 1 的代码、运行说明和最终图表。
+- `part3/`：Part 3 趋势分析的代码、运行说明和最终图表，见 [part3/README.md](part3/README.md)。
 - `tests/`：公共分词接口的测试。
 - `scripts/prepare_city_subset.py`：从原始 Yelp 数据重新提取城市子集的脚本，已有数据时不用运行。
 

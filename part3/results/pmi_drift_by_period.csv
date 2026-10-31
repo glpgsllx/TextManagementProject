@@ -1,0 +1,7 @@
+term,period,target_count,eligible_words,jaccard_previous,jaccard_first,same_period_resample_jaccard,new_since_previous
+service,2014-2016,2991,233,,1.0,0.6641,
+service,2017-2019,4108,324,0.4815,0.4815,0.6632,skills industry provided superb ambience quick sucks
+service,2020-2021,2219,171,0.4815,0.5385,0.5826,efficient wonderful great fantastic lack mediocre consistent
+price,2014-2016,589,43,,1.0,0.6665,
+price,2017-2019,620,47,0.6,0.6,0.6364,tag especially amount almost better
+price,2020-2021,305,17,0.3214,0.3214,0.6601,expected paid great good pizza food service really
