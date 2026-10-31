@@ -260,12 +260,13 @@ class UnclampedIdfTests(unittest.TestCase):
                                0.8472978603872037)
 
     def test_clamping_is_a_no_op_when_df_is_small(self):
-        # For df <= (N + 1) / 2 the raw value is non-negative, so clamping changes
+        # For df <= N / 2 the raw value is non-negative, so clamping changes
         # nothing value by value — clamping only affects frequent terms and never
         # quietly reweights the great majority of terms.
         for df in (1, 2):
             self.assertEqual(okapi_idf_unclamped(df, 5), okapi_idf(df, 5))
-        # Edge case: at df = (N + 1) / 2 the raw value is exactly 0.
+        # Edge case: at df = N / 2 the raw value is exactly 0; at df = (N + 1) / 2 it is
+        # already negative.
         self.assertEqual(okapi_idf_unclamped(2, 4), 0.0)
         self.assertEqual(okapi_idf_unclamped(3, 5), -0.3364722366212129)
 

@@ -130,7 +130,7 @@ def compare_pair(ranked_a, ranked_b, ks=(5, 10, 20, 50), pool=50):
     intersection τ is "ordering agreement on the shared documents".
 
     On documents that "one side never retrieved at all": this is not an anomaly, it is
-    the norm. BM25's Okapi idf clamps to 0 every term with df > (N+1)/2, and terms with
+    the norm. BM25's Okapi idf clamps to 0 every term with df > N/2, and terms with
     idf 0 are skipped outright, so **a document matching only such a term never appears
     in BM25's results at all**, yet it may well appear in TF-IDF's top 50 (where
     idf = ln(N/df) is merely small, not 0). Such a document has no rank on the side

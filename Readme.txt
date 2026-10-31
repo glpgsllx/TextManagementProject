@@ -377,7 +377,7 @@ GUI, no server, no configuration file.
 * BM25 absolute scores are 2.2x Lucene's by design (see 4.2). Only the ranking
   is comparable.
 * With the Okapi idf variant, a query made only of terms whose df exceeds
-  (N+1)/2 returns zero hits, because their idf is clamped to 0 and every term
+  N/2 returns zero hits, because their idf is clamped to 0 and every term
   is then skipped. This is intended behaviour and is analysed in the report
   (query Q45 "the and of"). Use --variant lucene or course to avoid it.
 ================================================================================

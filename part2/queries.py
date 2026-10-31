@@ -52,7 +52,7 @@ Why the edge cases matter (the six under `edge` are the ones worth reading):
                           handled
     the food / pizza and pasta
                           12 terms in the whole corpus have a negative raw Okapi idf
-                          (df > (N+1)/2); a query carrying one of them is where the
+                          (df > N/2); a query carrying one of them is where the
                           clamping ablation happens live
     pizza pizza           the same term twice, testing whether term-frequency weight
                           and the query vector get distorted by double counting

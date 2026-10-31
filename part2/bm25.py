@@ -26,7 +26,7 @@ Three versions of idf:
     okapi   max(0, ln((N − df + 0.5) / (df + 0.5)))
             The standard formula of Robertson & Zaragoza 2009 (the degenerate form
             with R = r = 0, i.e. no relevance-feedback information).
-            Note that it **can go negative**: when df > (N + 1) / 2 the numerator is
+            Note that it **can go negative**: when df > N / 2 the numerator is
             smaller than the denominator. A negative value means "a document loses
             score for containing this query term", which defies common sense, so it
             must be clamped to 0. On this corpus 12 terms are affected; the most
@@ -108,7 +108,7 @@ def lucene_idf(df, n_docs):
 
 
 def okapi_idf_unclamped(df, n_docs):
-    """Experimental: the original Okapi formula without clamping, negative when df > (N + 1) / 2.
+    """Experimental: the original Okapi formula without clamping, negative when df > N / 2.
 
     It exists solely for the ablation experiment — only by obtaining negative idf
     values can we quantify how much the clamping step actually changes the outcome.

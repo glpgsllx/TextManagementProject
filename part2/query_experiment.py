@@ -163,7 +163,7 @@ def group_pairs():
          "almost overlap)"),
         ("E6", "bm25_okapi", "bm25_okapi_unclamped",
          "Clamping ablation: remove only max(0, .); expected to move only queries "
-         "containing terms with df>(N+1)/2"),
+         "containing terms with df>N/2"),
     ]
     return pairs
 
