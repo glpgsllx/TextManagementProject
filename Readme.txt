@@ -11,12 +11,15 @@ assignment:
   Part 1  Tokenization, Zipf's law, Heaps' law, tokenizer comparison
           (Section 3.2 of the assignment brief)
   Part 2  Inverted index, TF-IDF with cosine similarity, Okapi BM25, query
-          experiments, Lucene cross-check (Sections 3.3.1 and 3.3.2)
+          experiments, Lucene cross-check (Sections 3.3.1 and 3.3.2).
+          The TF-IDF cosine ranker (part2/tfidf.py, --model tfidf) is the one
+          the report calls the vector space model.
 
 The dataset (Yelp reviews) and all third-party libraries are NOT included, as
 required by Section 4.2 of the brief. Everything here is plain Python or Java
-source plus small reproducible result artefacts (CSV / Markdown / JSON tables
-and a few figures). No dataset, no index cache, no binary, no library.
+source. Result tables are not shipped: the commands in Section 3 write them
+to part1/results/ and part2/results/ when run. No dataset, no index cache, no
+binary, no library.
 
 Repository layout:
 
@@ -43,8 +46,7 @@ tree and excludes the dataset, the git metadata and every cache:
   Compress-Archive -Path Src_Gxx\* -DestinationPath Src_Gxx.zip
 
 The archive must hold only Readme.txt and SourceCode/ - no dataset, no
-third-party library, no .git directory, no index cache. It comes out at about
-2.4 MB, mostly the per-query JSON results under part2/results/; if it is tens
+third-party library, no .git directory, no index cache. If the archive is tens
 of MB, data/ or part2/.cache/ was copied by mistake.
 
 ================================================================================
@@ -66,8 +68,7 @@ Required (Part 1 and Part 2 both need them):
                 our custom tokenizer (Unicode property escapes).
       https://pypi.org/project/regex/
 
-Required for the figures (Part 1 Zipf / Heaps plots, and the two Part 2
-report figures drawn by delivery/make_figures.py):
+Required for the Part 1 Zipf / Heaps plots:
 
   numpy 2.x         https://pypi.org/project/numpy/
   matplotlib 3.x    https://pypi.org/project/matplotlib/
@@ -89,6 +90,9 @@ None of the ranking functions use a built-in scoring module: both scoring
 functions (TF-IDF cosine and BM25) are implemented from scratch in Python.
 Lucene appears only in the optional cross-check, where its own BM25 and
 ClassicSimilarity rankings serve as an external baseline to compare against.
+The cross-check also builds a second Lucene index with Lucene's own
+StandardAnalyzer (this is what needs lucene-analysis-common). The report uses
+only the index built from our own tokens.
 
 ================================================================================
 2. INSTALLATION GUIDE
@@ -153,8 +157,8 @@ Step 5 - verify the installation
   python -m unittest discover -s part1/tests
   python -m unittest discover -s part2/tests
 
-  Expect 132 passing tests, 0 failures (7 shared tokenizer + 7 Part 1 +
-  118 Part 2). The test files are part of the deliverable: they are how we
+  Expect 138 passing tests, 0 failures (7 shared tokenizer + 7 Part 1 +
+  124 Part 2). The test files are part of the deliverable: they are how we
   defend the code line by line.
 
 ================================================================================
@@ -240,11 +244,13 @@ GUI, no server, no configuration file.
       Options: --queries, --skip-run (reuse the last Java output),
                --lucene-lib, --java-home
 
-  python delivery/make_figures.py
-      Draws the two report figures from the existing part2/results/ files
-      (re-runs no experiment; needs matplotlib). ~5 s. ->
-      delivery/figures/fig1_b_and_length.{pdf,png},
-      delivery/figures/fig2_df_drives_disagreement.{pdf,png}
+  python -m part2.param_behaviour
+      Behaviour of the BM25 parameters k1 and b on a grid anchored on the
+      published recommendations: k1 in {0, 1.2, 1.6, 2.0, 3.0}, b in
+      {0, 0.5, 0.75, 0.8, 1}. Reports agreement with the default (k1 = 1.2,
+      b = 0.75) and the term-frequency and length profile of the top 10.
+      -> param_behaviour.md/.json
+      Options: --input-dir, --output-dir, --index-file, --tokenizer
 
 --- Recommended order ---------------------------------------------------------
 
@@ -253,8 +259,8 @@ GUI, no server, no configuration file.
   python -m part2.query_experiment     # the Analysis numbers
   python -m part2.impl_analysis
   python -m part2.qualitative_reading
+  python -m part2.param_behaviour
   python -m part2.lucene_experiment    # optional, needs Java
-  python delivery/make_figures.py      # report figures, needs matplotlib
 
   Running part1 first matters: part2.run reads
   part1/results/tokenizer_comparison.csv and reports whether the document
@@ -356,8 +362,8 @@ GUI, no server, no configuration file.
   k1 x b sensitivity grid                          python -m part2.query_experiment
   Per-implementation behaviour profile             python -m part2.impl_analysis
   Qualitative reading of the top hits              python -m part2.qualitative_reading
+  k1 and b behaviour                               python -m part2.param_behaviour
   Lucene cross-check (optional)                    python -m part2.lucene_experiment
-  Figures 1 and 2                                  python delivery/make_figures.py
 
   All generated tables land in part2/results/ as both .md (readable) and .json
   (machine-readable). The report quotes from these files only.
