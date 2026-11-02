@@ -48,4 +48,5 @@ print(terms)
 
 ```bash
 python -m unittest tests.test_text_processing -v
-```
+python -m unittest discover -s part3/tests -t .
+python -m unittest discover -s part4/tests -t .

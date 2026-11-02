@@ -1,0 +1,150 @@
+{
+  "reviews": 37401,
+  "sentences": 289315,
+  "cue_sentences": 7000,
+  "business_comparisons": 943,
+  "superlatives": 1892,
+  "business_per_1000_sentences": 3.26,
+  "by_star": {
+    "1": {
+      "comparisons": 116,
+      "sentences": 65401,
+      "per_1000": 1.77
+    },
+    "2": {
+      "comparisons": 103,
+      "sentences": 31964,
+      "per_1000": 3.22
+    },
+    "3": {
+      "comparisons": 120,
+      "sentences": 30007,
+      "per_1000": 4.0
+    },
+    "4": {
+      "comparisons": 241,
+      "sentences": 48794,
+      "per_1000": 4.94
+    },
+    "5": {
+      "comparisons": 363,
+      "sentences": 113149,
+      "per_1000": 3.21
+    }
+  },
+  "by_year": {
+    "2005": {
+      "comparisons": 0,
+      "sentences": 7,
+      "per_1000": 0.0
+    },
+    "2007": {
+      "comparisons": 1,
+      "sentences": 149,
+      "per_1000": 6.71
+    },
+    "2008": {
+      "comparisons": 2,
+      "sentences": 501,
+      "per_1000": 3.99
+    },
+    "2009": {
+      "comparisons": 5,
+      "sentences": 1009,
+      "per_1000": 4.96
+    },
+    "2010": {
+      "comparisons": 9,
+      "sentences": 1215,
+      "per_1000": 7.41
+    },
+    "2011": {
+      "comparisons": 15,
+      "sentences": 3276,
+      "per_1000": 4.58
+    },
+    "2012": {
+      "comparisons": 23,
+      "sentences": 5591,
+      "per_1000": 4.11
+    },
+    "2013": {
+      "comparisons": 44,
+      "sentences": 8235,
+      "per_1000": 5.34
+    },
+    "2014": {
+      "comparisons": 80,
+      "sentences": 18753,
+      "per_1000": 4.27
+    },
+    "2015": {
+      "comparisons": 104,
+      "sentences": 25682,
+      "per_1000": 4.05
+    },
+    "2016": {
+      "comparisons": 151,
+      "sentences": 32665,
+      "per_1000": 4.62
+    },
+    "2017": {
+      "comparisons": 105,
+      "sentences": 36549,
+      "per_1000": 2.87
+    },
+    "2018": {
+      "comparisons": 112,
+      "sentences": 39508,
+      "per_1000": 2.83
+    },
+    "2019": {
+      "comparisons": 105,
+      "sentences": 43269,
+      "per_1000": 2.43
+    },
+    "2020": {
+      "comparisons": 89,
+      "sentences": 32443,
+      "per_1000": 2.74
+    },
+    "2021": {
+      "comparisons": 89,
+      "sentences": 38675,
+      "per_1000": 2.3
+    },
+    "2022": {
+      "comparisons": 9,
+      "sentences": 1788,
+      "per_1000": 5.03
+    }
+  },
+  "top_families": {
+    "than": 350,
+    "more_less_than": 253,
+    "same_as": 155,
+    "compared": 129,
+    "superlative": 32,
+    "beat": 18,
+    "prefer": 15,
+    "unlike": 8
+  },
+  "top_targets": {
+    "subway": 23,
+    "chipotle": 17,
+    "walmart": 17,
+    "albertsons": 13,
+    "sonic": 12,
+    "starbucks": 12,
+    "red robin": 11,
+    "taco bell": 10,
+    "five guys": 10,
+    "mcdonalds": 10,
+    "dennys": 8,
+    "applebees": 8,
+    "little caesars": 8,
+    "dominos": 6,
+    "panda express": 6
+  },
+  "seconds": 11.5
+}
