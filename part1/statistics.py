@@ -6,9 +6,7 @@ import math
 import numpy as np
 
 
-REQUIRED_FRACTIONS = (0.10, 0.30, 0.50, 1.00)
-DENSE_FRACTIONS = (0.01, 0.02, 0.05, 0.10, 0.20, 0.30, 0.40, 0.50, 0.60, 0.70, 0.80, 0.90, 1.00)
-
+REVIEW_FRACTIONS = (0.10, 0.30, 0.50, 1.00)
 
 def log_fit(x, y):
     """OLS in log10 space; descriptive fit, not a power-law hypothesis test."""
@@ -60,21 +58,22 @@ def review_order(review_ids, seed):
     ))
 
 
-def heaps_points(review_ids, token_counts, document_types, seed=42):
-    n_docs = len(review_ids)
-    checkpoints = {max(1, math.ceil(n_docs * f)): f for f in DENSE_FRACTIONS}
-    seen = set()
-    total_tokens = 0
-    result = []
-    for rank, index in enumerate(review_order(review_ids, seed), start=1):
-        total_tokens += token_counts[index]
-        seen.update(document_types[index])
-        if rank in checkpoints:
-            fraction = checkpoints[rank]
-            result.append({"seed": seed, "fraction": fraction, "reviews": rank,
-                           "tokens": total_tokens, "types": len(seen),
-                           "required_checkpoint": fraction in REQUIRED_FRACTIONS})
-    return result
+def heaps_sampling_plan(review_ids, token_counts, seed=42, n_fit_points=80):
+    """One review ordering, a log-spaced fit grid, and labelled checkpoints."""
+    total = sum(token_counts)
+    order = review_order(review_ids, seed)
+    fit_tokens = set(np.rint(np.geomspace(1_000, total, n_fit_points)).astype(int).tolist())
+    review_stops = {math.ceil(len(order) * f): f for f in REVIEW_FRACTIONS}
+    review_fractions = {}
+    cumulative = 0
+    for rank, index in enumerate(order, start=1):
+        cumulative += token_counts[index]
+        if rank in review_stops:
+            review_fractions[cumulative] = review_stops[rank]
+    anchors = {n for n in (1_000, 10_000, 100_000, 1_000_000, total) if n <= total}
+    return {"order": order, "fit_tokens": fit_tokens,
+            "checkpoints": sorted(fit_tokens | anchors | set(review_fractions)),
+            "review_fractions": review_fractions}
 
 
 def heaps_token_points(tokenized_reviews, checkpoints=(1_000, 10_000, 100_000)):
@@ -102,17 +101,19 @@ def heaps_token_points(tokenized_reviews, checkpoints=(1_000, 10_000, 100_000)):
 
 
 def heaps_statistics(points):
-    selected = [p for p in points if p["required_checkpoint"]]
-    if len(selected) != 4:
-        raise ValueError("dataset too small to form four required checkpoints")
-    fit = log_fit([p["tokens"] for p in selected], [p["types"] for p in selected])
-    fit.update({"k": fit["coefficient"], "beta": fit["slope"]})
-    train = [p for p in selected if p["fraction"] < 1]
+    """Fit the fixed log-spaced grid; separately predict the withheld endpoint."""
+    fit_points = [p for p in points if p["fit_checkpoint"]]
+    fit = log_fit([p["tokens"] for p in fit_points], [p["types"] for p in fit_points])
+    fit.update({"k": fit["coefficient"], "beta": fit["slope"],
+                "N_min": fit_points[0]["tokens"], "N_max": fit_points[-1]["tokens"]})
+    full = points[-1]
+    cutoff = math.floor(0.8 * full["tokens"])
+    train = [p for p in fit_points if p["tokens"] <= cutoff]
     predictive = log_fit([p["tokens"] for p in train], [p["types"] for p in train])
-    full = selected[-1]
     prediction = predictive["coefficient"] * full["tokens"] ** predictive["slope"]
     predictive.update({"k": predictive["coefficient"], "beta": predictive["slope"],
-                       "held_out_fraction": 1.0, "actual_types": full["types"],
+                       "cutoff_tokens": cutoff, "max_training_tokens": train[-1]["tokens"],
+                       "total_tokens": full["tokens"], "actual_types": full["types"],
                        "predicted_types": prediction,
-                       "relative_error": (prediction - full["types"]) / full["types"]})
-    return {"four_checkpoint_fit": fit, "fit_10_30_50_predict_100": predictive}
+                       "absolute_percentage_error": abs(prediction / full["types"] - 1) * 100})
+    return {"fit": fit, "prediction": predictive}

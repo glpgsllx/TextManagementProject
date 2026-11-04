@@ -1,6 +1,5 @@
 """Run Part 1 end to end: python -m part1.run (from repository root)."""
 
-from array import array
 from collections import Counter
 import argparse
 import csv
@@ -15,9 +14,9 @@ import regex
 
 from text_processing import get_tokenizer
 
-from .plots import make_figures, make_token_heaps_figure
+from .plots import make_figures
 from .statistics import (
-    heaps_points, heaps_statistics, heaps_token_points, log_fit, review_order, zipf_statistics,
+    heaps_sampling_plan, heaps_statistics, heaps_token_points, zipf_statistics,
 )
 from .tokenizer import (
     APOSTROPHES, RULES, WORD_PATTERN, expand_word, is_emoji, is_emoticon,
@@ -122,8 +121,7 @@ def analyze(documents):
     tokenizers = {name: get_tokenizer(name) for name in NAMES}
     raw_counts = {name: Counter() for name in NAMES}
     frequencies = {name: Counter() for name in NAMES}
-    token_counts, document_types = [], []
-    vocabulary_ids = {}
+    token_counts = []
     expansion_counts, emoji_counts, emoticon_counts = Counter(), Counter(), Counter()
     emoji_reviews = emoticon_reviews = 0
     for i, document in enumerate(documents):
@@ -137,13 +135,6 @@ def analyze(documents):
             frequencies[name].update(terms)
             if name == "custom":
                 token_counts.append(len(terms))
-                unique = set(terms)
-                ids = []
-                for term in sorted(unique):
-                    if term not in vocabulary_ids:
-                        vocabulary_ids[term] = len(vocabulary_ids)
-                    ids.append(vocabulary_ids[term])
-                document_types.append(array("I", ids))
         emojis = [t for t in custom_raw if is_emoji(t)]
         emoticons = [t for t in custom_raw if is_emoticon(t)]
         emoji_reviews += bool(emojis)
@@ -172,7 +163,7 @@ def analyze(documents):
                 "expanded_word_occurrences": expansion_counts.total(),
                 "contraction_expansion_counts": dict(expansion_counts.most_common()),
                 "emoji_note": "Actual Unicode matches include text-style symbols. Synthetic pictorial emoji cases remain separate."}
-    return frequencies, comparison, token_counts, document_types, coverage, build_examples(documents, tokenizers)
+    return frequencies, comparison, token_counts, coverage, build_examples(documents, tokenizers)
 
 
 
@@ -190,7 +181,7 @@ def main():
     started = time.monotonic()
     documents, corpus = load_corpus(args.input_dir)
     print(f"Verified {corpus['businesses']:,} businesses and {corpus['reviews']:,} reviews", flush=True)
-    frequencies, comparison, token_counts, document_types, coverage, examples = analyze(documents)
+    frequencies, comparison, token_counts, coverage, examples = analyze(documents)
     for method, frequency in frequencies.items():
         ranked = sorted(frequency.items(), key=lambda item: (-item[1], item[0]))
         write_csv(details / f"term_frequencies_{method}.csv",
@@ -198,48 +189,35 @@ def main():
                   ["rank", "term", "frequency"])
     _, zipf = zipf_statistics(frequencies["custom"])
     review_ids = [d["review_id"] for d in documents]
-    points = heaps_points(review_ids, token_counts, document_types, args.seed)
-    heaps = heaps_statistics(points)
+    plan = heaps_sampling_plan(review_ids, token_counts, args.seed)
     tokenizer = get_tokenizer("custom")
-    ordered_reviews = review_order(review_ids, args.seed)
-    token_points = heaps_token_points(
-        tokenizer.tokenize(documents[i]["text"]) for i in ordered_reviews
+    points = heaps_token_points(
+        (tokenizer.tokenize(documents[i]["text"]) for i in plan["order"]),
+        checkpoints=plan["checkpoints"],
     )
-    token_fit = log_fit([p["tokens"] for p in token_points], [p["types"] for p in token_points])
-    token_fit.update({"k": token_fit["coefficient"], "beta": token_fit["slope"]})
-    seed_results = []
-    all_points = []
-    sampling = []
-    for seed in range(args.seed, args.seed + 5):
-        current = points if seed == args.seed else heaps_points(review_ids, token_counts, document_types, seed)
-        stats = heaps_statistics(current)
-        seed_results.append({"seed": seed, **stats["four_checkpoint_fit"],
-                             "prediction_relative_error": stats["fit_10_30_50_predict_100"]["relative_error"]})
-        all_points.extend(current)
-        ordering = review_order(review_ids, seed)
-        sampling.append({"seed": seed, "checkpoints": [
-            {"fraction": p["fraction"], "reviews": p["reviews"],
-             "review_ids_sha256": hashlib.sha256("\n".join(review_ids[i] for i in ordering[:p["reviews"]]).encode()).hexdigest()}
-            for p in current if p["required_checkpoint"]
-        ]})
+    for point in points:
+        point["seed"] = args.seed
+        point["fit_checkpoint"] = point["tokens"] in plan["fit_tokens"]
+        point["review_fraction"] = plan["review_fractions"].get(point["tokens"], "")
+    heaps = heaps_statistics(points)
     if points[-1]["tokens"] != frequencies["custom"].total() or points[-1]["types"] != len(frequencies["custom"]):
         raise AssertionError("Heaps full sample does not conserve corpus token/type counts")
     if not all(item.get("custom_passed", True) for item in examples):
         raise AssertionError("A synthetic tokenizer boundary case failed")
     write_csv(output / "tokenizer_comparison.csv", comparison, list(comparison[0]))
-    write_csv(output / "heaps_samples.csv", [p for p in points if p["required_checkpoint"]], list(points[0]))
-    token_rows = [{"seed": args.seed, **p} for p in token_points]
-    write_csv(output / "heaps_token_samples.csv", token_rows, list(token_rows[0]))
+    write_csv(output / "heaps_samples.csv", points, list(points[0]))
+    prediction = heaps["prediction"]
+    prediction_fields = ["max_training_tokens", "n_points", "k", "beta", "total_tokens",
+                         "actual_types", "predicted_types", "absolute_percentage_error"]
+    write_csv(output / "heaps_prediction.csv",
+              [{key: prediction[key] for key in prediction_fields}], prediction_fields)
     law_parameters = [
         {"law": "Zipf", "coefficient": zipf["primary_fit"]["coefficient"],
          "exponent": zipf["primary_fit"]["exponent_s"], "r2_log10": zipf["primary_fit"]["r2_log10"],
          "fit_scope": "ranks 10-10000; frequency >= 2"},
-        {"law": "Heaps", "coefficient": heaps["four_checkpoint_fit"]["k"],
-         "exponent": heaps["four_checkpoint_fit"]["beta"], "r2_log10": heaps["four_checkpoint_fit"]["r2_log10"],
-         "fit_scope": "10%, 30%, 50%, 100% reviews; N is normalized tokens"},
-        {"law": "Heaps (1k-100k tokens)", "coefficient": token_fit["k"],
-         "exponent": token_fit["beta"], "r2_log10": token_fit["r2_log10"],
-         "fit_scope": f"exact prefixes of 1000, 10000, 100000 normalized tokens; seed {args.seed}"},
+        {"law": "Heaps", "coefficient": heaps["fit"]["k"],
+         "exponent": heaps["fit"]["beta"], "r2_log10": heaps["fit"]["r2_log10"],
+         "fit_scope": f"{heaps['fit']['n_points']} log-spaced checkpoints; N={heaps['fit']['N_min']}..{heaps['fit']['N_max']}; seed {args.seed}"},
     ]
     write_csv(output / "law_parameters.csv", law_parameters, list(law_parameters[0]))
     report_examples = []
@@ -249,10 +227,13 @@ def main():
                                     **{name: json.dumps(terms, ensure_ascii=False)
                                        for name, terms in item["normalized_terms"].items()}})
     write_csv(output / "tokenization_examples.csv", report_examples, list(report_examples[0]))
-    write_csv(details / "heaps_samples.csv", all_points, list(points[0]))
-    write_csv(details / "heaps_parameters.csv", seed_results, list(seed_results[0]))
     dump_json(details / "tokenization_examples.json", examples)
-    dump_json(details / "sampling_manifest.json", {"method": "sort by SHA256(seed + NUL + review_id), then review_id; nested prefixes; ceil(review_count*fraction)", "seeds": sampling})
+    dump_json(details / "sampling_manifest.json", {
+        "method": "sort by SHA256(seed + NUL + review_id), then review_id; exact nested token prefixes",
+        "seed": args.seed, "fit_tokens": sorted(plan["fit_tokens"]),
+        "ordered_review_ids_sha256": hashlib.sha256(
+            "\n".join(review_ids[i] for i in plan["order"]).encode()).hexdigest(),
+    })
     summary = {
         "corpus": corpus,
         "policy": {"surface_stage": "NFC, ordered regex; retain punctuation, discard dash delimiters",
@@ -261,15 +242,13 @@ def main():
                    "ambiguous_forms": "preserve 's, 'd and ain't; no POS/sense guessing",
                    "baseline_fairness": "Same reviews, NFC and normalize_tokens function. Expansion requires a complete recognized word token."},
         "tokenizers": comparison, "zipf": zipf, "heaps": heaps,
-        "heaps_token_checkpoints": {"seed": args.seed, "points": token_points, "fit": token_fit,
-                                    "sampling": "Same review order as percentage samples; exact token prefixes may end inside a review."},
-        "heaps_seed_sensitivity": {"seeds": [r["seed"] for r in seed_results],
-                                   "beta_min": min(r["beta"] for r in seed_results),
-                                   "beta_max": max(r["beta"] for r in seed_results)},
         "coverage": coverage,
         "synthetic_tests": {"cases": len(CASES), "passed": sum(e.get("custom_passed", False) for e in examples), "excluded_from_corpus_statistics": True},
-        "sampling": {"primary_seed": args.seed, "fractions": [0.1, 0.3, 0.5, 1.0],
-                     "unit": "reviews for subset selection; actual token count for Heaps x-axis",
+        "sampling": {"primary_seed": args.seed, "fit_checkpoints": 80,
+                     "fit_grid": "rounded logarithmically spaced token counts from 1000 to full corpus",
+                     "additional_checkpoints": "1k/10k/100k/1M tokens and 10/30/50/100% reviews; display only unless on fit grid",
+                     "prediction": "fit the same grid using only N <= 80% of full token total; predict full vocabulary",
+                     "unit": "normalized tokens; a prefix may stop inside a review",
                      "full_sample": "100% of the selected Meridian corpus, not the full Yelp download"},
         "environment": {"python": platform.python_version(), **{p: version(p) for p in ("regex", "nltk", "numpy", "matplotlib")}},
         "code_sha256": {str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
@@ -282,10 +261,9 @@ def main():
     dump_json(details / "summary.json", summary)
     dump_json(details / "regex_rules.json", [{"priority": i, "kind": name, "pattern": pattern} for i, (name, pattern) in enumerate(RULES, 1)])
     make_figures(output, frequencies, comparison, zipf, points, heaps)
-    make_token_heaps_figure(output, token_points, token_fit)
     print(json.dumps({"output": str(output.relative_to(ROOT)) if output.is_relative_to(ROOT) else str(output),
                       "tokenizers": comparison, "zipf": zipf["primary_fit"],
-                      "heaps": heaps, "heaps_token_checkpoints": {"points": token_points, "fit": token_fit},
+                      "heaps": heaps,
                       "coverage_reviews": {"emoji": coverage["custom_emoji_reviews"], "emoticons": coverage["custom_emoticon_reviews"]},
                       "elapsed_seconds": round(time.monotonic() - started, 1)}, ensure_ascii=False, indent=2))
 

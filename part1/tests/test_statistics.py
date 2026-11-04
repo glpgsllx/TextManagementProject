@@ -1,6 +1,6 @@
 import unittest
 
-from part1.statistics import heaps_points, heaps_statistics, heaps_token_points, log_fit, review_order
+from part1.statistics import heaps_sampling_plan, heaps_statistics, heaps_token_points, log_fit, review_order
 
 
 class StatisticsTests(unittest.TestCase):
@@ -28,16 +28,38 @@ class StatisticsTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Only 3 tokens available"):
             heaps_token_points([["a", "b", "a"]], checkpoints=(2, 4))
 
-    def test_nested_samples_conserve_full_corpus(self):
+    def test_sampling_plan_has_a_fixed_fit_grid_and_review_checkpoints(self):
         ids = [f"r{i}" for i in range(100)]
-        points = heaps_points(ids, [2] * 100, [(i, i + 1) for i in range(100)])
-        self.assertEqual([p["reviews"] for p in points if p["required_checkpoint"]], [10, 30, 50, 100])
+        plan = heaps_sampling_plan(ids, [40] * 100)
+        self.assertEqual(len(plan["fit_tokens"]), 80)
+        self.assertEqual(min(plan["fit_tokens"]), 1000)
+        self.assertEqual(max(plan["fit_tokens"]), 4000)
+        self.assertEqual(plan["review_fractions"], {400: .1, 1200: .3, 2000: .5, 4000: 1.0})
+        self.assertEqual(plan["checkpoints"], sorted(set(plan["checkpoints"])))
+        self.assertTrue(plan["fit_tokens"].issubset(plan["checkpoints"]))
+        self.assertEqual(plan["order"], review_order(ids, 42))
+        self.assertNotEqual(plan["order"], review_order(ids, 43))
+
+    def test_unified_fit_uses_only_grid_points_and_prediction_withholds_endpoint(self):
+        points = [{"tokens": n, "types": v, "fit_checkpoint": True}
+                  for n, v in ((100, 10), (400, 20), (900, 30), (1600, 40), (2500, 50))]
+        # An annotation-only point does not change the fitted parameters.
+        points.insert(1, {"tokens": 200, "types": 30, "fit_checkpoint": False})
+        stats = heaps_statistics(points)
+        self.assertAlmostEqual(stats["fit"]["k"], 1)
+        self.assertAlmostEqual(stats["fit"]["beta"], .5)
+        self.assertEqual(stats["fit"]["n_points"], 5)
+        self.assertEqual(stats["prediction"]["max_training_tokens"], 1600)
+        self.assertEqual(stats["prediction"]["n_points"], 4)
+        self.assertAlmostEqual(stats["prediction"]["predicted_types"], 50)
+        self.assertAlmostEqual(stats["prediction"]["absolute_percentage_error"], 0)
+
+    def test_token_prefix_full_endpoint_conserves_counts(self):
+        reviews = [[str(i), str(i + 1)] for i in range(100)]
+        points = heaps_token_points(reviews, checkpoints=(20, 60, 100, 200))
         self.assertEqual(points[-1]["tokens"], 200)
         self.assertEqual(points[-1]["types"], 101)
         self.assertEqual([p["types"] for p in points], sorted(p["types"] for p in points))
-        self.assertEqual(points, heaps_points(ids, [2] * 100, [(i, i + 1) for i in range(100)]))
-        self.assertNotEqual(review_order(ids, 42), review_order(ids, 43))
-        self.assertEqual(heaps_statistics(points)["four_checkpoint_fit"]["n_points"], 4)
 
 
 if __name__ == "__main__":

@@ -1,0 +1,2 @@
+max_training_tokens,n_points,k,beta,total_tokens,actual_types,predicted_types,absolute_percentage_error
+2767159,77,13.230694414448203,0.5413133122612855,3783589,38120,48116.01105011088,26.222484391686464

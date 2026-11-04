@@ -17,9 +17,11 @@ python -m part1.run
 python -m part1.run --input-dir data/meridian_id --output-dir part1/results --seed 42
 ```
 
-默认种子是 42。Heaps 按评论数取 10%、30%、50%、100% 的嵌套样本，公式中的 N 使用实际累计词数。
+默认种子是 42，评论按 `SHA256(seed + NUL + review_id)` 排序。Heaps 使用同一条归一化 token 流，从 1,000 个 token 到全量取 80 个对数间隔的检查点，统一在 log-log 空间拟合。
 
-另外单独统计前 1k、10k、100k 个归一化 token 的词表大小。它们使用相同的评论排序，截取位置可以落在一条评论中间，保证 token 数恰好达到检查点。这组参数单独拟合，覆盖的文本规模与比例采样不同。
+1k、10k、100k、1M token 和 10%、30%、50%、100% 评论的位置也会记录在同一张表里。`fit_checkpoint` 标明哪些点属于固定拟合网格；额外标注点不会改变拟合权重，`review_fraction` 标明评论比例。每个规模都是前一个规模的延伸，必要时在评论中间截断。
+
+全量预测单独检验：只用 `N <= 全量 token 数的 80%` 范围内的拟合点估计参数，再预测全量词表。`heaps_prediction.csv` 记录这个预测模型的参数和误差；`law_parameters.csv` 则记录全部 80 个点拟合的描述模型。
 
 ## 看一条文本怎么分词
 
@@ -40,11 +42,10 @@ normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 
 ## 结果在哪里
 
-`results/` 中有四张图，每张都提供 PNG 和 SVG：
+`results/` 中有三张图，每张都提供 PNG 和 SVG：
 
 - `zipf`：词频与排名的双对数图。
-- `heaps`：词表随文本量增长的曲线。
-- `heaps_tokens`：恰好 1k、10k、100k token 时的词表大小和单独拟合。
+- `heaps`：统一的词表增长曲线、80 点拟合和全量预测。
 - `tokenizer_comparison`：三种分词器的词表大小。
 
 对应的表格是：
@@ -52,12 +53,14 @@ normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 | 文件 | 看什么 |
 | --- | --- |
 | `tokenizer_comparison.csv` | 各方法的总词数、不同词数和只出现一次的词数 |
-| `heaps_samples.csv` | 四个样本规模的实际词数和词表大小 |
-| `heaps_token_samples.csv` | 1k、10k、100k token 的实际不同词数及已读到的评论数 |
+| `heaps_samples.csv` | 统一增长曲线的所有观测点、拟合标记和评论比例 |
+| `heaps_prediction.csv` | 留出全量结果后的词表预测、参数和误差 |
 | `law_parameters.csv` | Zipf、Heaps 的拟合参数、范围和 log-log R² |
 | `tokenization_examples.csv` | 同一段文字经过三种分词器后的结果 |
 
 Zipf 使用 `f(r) = C × r^(-s)`，表中的 coefficient、exponent 分别是 C、s；Heaps 使用 `V = k × N^β`，对应 k、β。示例表会注明文字来自真实评论还是合成案例，合成案例不参与词频和词表统计。
+
+Heaps 图按约 85 mm（3.35 英寸）的单栏宽度制作，文字为 9 pt。插入报告时按单栏宽度使用，避免再次缩小导致字体难读。
 
 ## 测试和依赖
 

@@ -15,25 +15,36 @@ def save_figure(fig, output, stem):
     plt.close(fig)
 
 
-def make_token_heaps_figure(output, points, fit):
-    """Separate log-log plot for the three exact token checkpoints."""
-    n = np.array([p["tokens"] for p in points])
-    v = np.array([p["types"] for p in points])
-    xx = np.geomspace(n.min(), n.max(), 200)
-    fig, ax = plt.subplots(figsize=(6, 4.2), layout="constrained")
-    ax.loglog(xx, fit["k"] * xx**fit["beta"], "--", color="#C34A36",
-              label=f"Fit: k={fit['k']:.2f}, β={fit['beta']:.3f}, R²={fit['r2_log10']:.4f}")
-    ax.scatter(n, v, color=COLORS["custom"], zorder=3, label="Exact nested token prefixes")
-    for tokens, types in zip(n, v):
-        ax.annotate(f"V={types:,}", (tokens, types), xytext=(0, 8),
-                    textcoords="offset points", ha="center", fontsize=9)
-    ax.set(xscale="log", yscale="log", xlabel="Cumulative normalized tokens N",
-           ylabel="Vocabulary types V", title="Heaps: 1k, 10k and 100k tokens")
-    ax.set_xticks(n, [f"{tokens / 1000:g}k" for tokens in n])
-    ax.margins(x=0.15, y=0.2)
-    ax.grid(alpha=0.15)
-    ax.legend(fontsize=8, loc="upper left")
-    save_figure(fig, output, "heaps_tokens")
+def make_heaps_figure(output, points, heaps):
+    """Single-column figure: 3.35 inches wide, with 9-point text at that size."""
+    style = {"font.size": 9, "axes.labelsize": 9, "xtick.labelsize": 9,
+             "ytick.labelsize": 9, "legend.fontsize": 9, "svg.fonttype": "none"}
+    with plt.rc_context(style):
+        fit = heaps["fit"]
+        prediction = heaps["prediction"]
+        n = np.array([p["tokens"] for p in points])
+        v = np.array([p["types"] for p in points])
+        review_points = [p for p in points if p["review_fraction"] != ""]
+        xx = np.geomspace(fit["N_min"], fit["N_max"], 300)
+        fig, ax = plt.subplots(figsize=(3.35, 2.85), layout="constrained")
+        ax.loglog(n, v, color=COLORS["custom"], lw=1.3, label="Observed")
+        ax.loglog(xx, fit["k"] * xx**fit["beta"], "--", color="#C34A36",
+                  lw=1.2, label="Power-law fit")
+        ax.scatter([p["tokens"] for p in review_points], [p["types"] for p in review_points],
+                   s=15, color=COLORS["custom"], zorder=3, label="10/30/50/100% reviews")
+        ax.scatter(n[-1], prediction["predicted_types"], marker="x", s=28,
+                   color="#825AA8", zorder=4, label="Full-size prediction")
+        ax.text(0.97, 0.05,
+                f"k = {fit['k']:.3f}\nβ = {fit['beta']:.4f}\nR² = {fit['r2_log10']:.4f}",
+                transform=ax.transAxes, ha="right", va="bottom", fontsize=9)
+        ax.set(xlabel="Tokens, N", ylabel="Vocabulary, V")
+        ax.grid(alpha=0.15)
+        ax.legend(loc="upper left", frameon=False, handlelength=1.6,
+                  handletextpad=0.5, borderaxespad=0.3, labelspacing=0.25)
+        # Keep the physical width fixed, so LaTeX column-width placement retains 9 pt text.
+        fig.savefig(output / "heaps.png", dpi=300, bbox_inches=None)
+        fig.savefig(output / "heaps.svg", bbox_inches=None, metadata={"Date": None})
+        plt.close(fig)
 
 
 def make_figures(output, frequencies, comparison, zipf, points, heaps):
@@ -61,28 +72,7 @@ def make_figures(output, frequencies, comparison, zipf, points, heaps):
         ax.grid(alpha=0.15)
     save_figure(fig, output, "zipf")
 
-    required = [p for p in points if p["required_checkpoint"]]
-    f = heaps["four_checkpoint_fit"]
-    predictive = heaps["fit_10_30_50_predict_100"]
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.2), layout="constrained")
-    n = np.array([p["tokens"] for p in points])
-    v = np.array([p["types"] for p in points])
-    xx = np.geomspace(n.min(), n.max(), 250)
-    for ax in axes:
-        ax.plot(n, v, ".-", color=COLORS["custom"], label="Nested corpus observations")
-        ax.scatter([p["tokens"] for p in required], [p["types"] for p in required], s=45,
-                   color=COLORS["custom"], edgecolor="white", zorder=4, label="10%, 30%, 50%, 100% reviews")
-        ax.plot(xx, f["k"] * xx**f["beta"], "--", color="#C34A36", label=f"Four-point fit: β={f['beta']:.3f}")
-        ax.scatter(n[-1], predictive["predicted_types"], marker="x", s=60, color="#8B579E",
-                   label="100% prediction from 10/30/50%")
-        ax.grid(alpha=0.15)
-        ax.set(xlabel="Cumulative normalized tokens N", ylabel="Vocabulary types V")
-    axes[0].set_title("Heaps: vocabulary growth")
-    axes[0].xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x / 1e6:.1f}M"))
-    axes[0].yaxis.set_major_formatter(FuncFormatter(lambda x, _: f"{x / 1e3:.0f}k"))
-    axes[1].set(xscale="log", yscale="log", title=f"Log-log fit: k={f['k']:.2f}, R²={f['r2_log10']:.4f}")
-    axes[0].legend(fontsize=8, loc="lower right")
-    save_figure(fig, output, "heaps")
+    make_heaps_figure(output, points, heaps)
 
     fig, ax = plt.subplots(figsize=(8, 4.2), layout="constrained")
     ax.bar([r["method"].replace("_", "\n") for r in comparison], [r["normalized_types"] for r in comparison],
