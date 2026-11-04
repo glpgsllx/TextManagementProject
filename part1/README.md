@@ -19,6 +19,8 @@ python -m part1.run --input-dir data/meridian_id --output-dir part1/results --se
 
 默认种子是 42。Heaps 按评论数取 10%、30%、50%、100% 的嵌套样本，公式中的 N 使用实际累计词数。
 
+另外单独统计前 1k、10k、100k 个归一化 token 的词表大小。它们使用相同的评论排序，截取位置可以落在一条评论中间，保证 token 数恰好达到检查点。这组参数单独拟合，覆盖的文本规模与比例采样不同。
+
 ## 看一条文本怎么分词
 
 ```bash
@@ -38,10 +40,11 @@ normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 
 ## 结果在哪里
 
-`results/` 中有三张图，每张都提供 PNG 和 SVG：
+`results/` 中有四张图，每张都提供 PNG 和 SVG：
 
 - `zipf`：词频与排名的双对数图。
 - `heaps`：词表随文本量增长的曲线。
+- `heaps_tokens`：恰好 1k、10k、100k token 时的词表大小和单独拟合。
 - `tokenizer_comparison`：三种分词器的词表大小。
 
 对应的表格是：
@@ -50,6 +53,7 @@ normalized_terms: ["i", "do", "not", "like", "the", "best", "food", "😊"]
 | --- | --- |
 | `tokenizer_comparison.csv` | 各方法的总词数、不同词数和只出现一次的词数 |
 | `heaps_samples.csv` | 四个样本规模的实际词数和词表大小 |
+| `heaps_token_samples.csv` | 1k、10k、100k token 的实际不同词数及已读到的评论数 |
 | `law_parameters.csv` | Zipf、Heaps 的拟合参数、范围和 log-log R² |
 | `tokenization_examples.csv` | 同一段文字经过三种分词器后的结果 |
 

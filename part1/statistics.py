@@ -77,6 +77,30 @@ def heaps_points(review_ids, token_counts, document_types, seed=42):
     return result
 
 
+def heaps_token_points(tokenized_reviews, checkpoints=(1_000, 10_000, 100_000)):
+    """Count nested token prefixes, stopping inside a review when necessary.
+
+    Reviews arrive in the chosen sampling order. Checkpoints are increasing
+    positive token counts; repeated words still count towards the token total.
+    """
+    targets = iter(checkpoints)
+    target = next(targets)
+    seen = set()
+    total = 0
+    result = []
+    for reviews_started, terms in enumerate(tokenized_reviews, start=1):
+        for term in terms:
+            total += 1
+            seen.add(term)
+            if total == target:
+                result.append({"tokens": total, "types": len(seen),
+                               "reviews_started": reviews_started})
+                target = next(targets, None)
+                if target is None:
+                    return result
+    raise ValueError(f"Only {total} tokens available; cannot reach checkpoint {target}")
+
+
 def heaps_statistics(points):
     selected = [p for p in points if p["required_checkpoint"]]
     if len(selected) != 4:

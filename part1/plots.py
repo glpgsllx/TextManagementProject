@@ -15,6 +15,27 @@ def save_figure(fig, output, stem):
     plt.close(fig)
 
 
+def make_token_heaps_figure(output, points, fit):
+    """Separate log-log plot for the three exact token checkpoints."""
+    n = np.array([p["tokens"] for p in points])
+    v = np.array([p["types"] for p in points])
+    xx = np.geomspace(n.min(), n.max(), 200)
+    fig, ax = plt.subplots(figsize=(6, 4.2), layout="constrained")
+    ax.loglog(xx, fit["k"] * xx**fit["beta"], "--", color="#C34A36",
+              label=f"Fit: k={fit['k']:.2f}, β={fit['beta']:.3f}, R²={fit['r2_log10']:.4f}")
+    ax.scatter(n, v, color=COLORS["custom"], zorder=3, label="Exact nested token prefixes")
+    for tokens, types in zip(n, v):
+        ax.annotate(f"V={types:,}", (tokens, types), xytext=(0, 8),
+                    textcoords="offset points", ha="center", fontsize=9)
+    ax.set(xscale="log", yscale="log", xlabel="Cumulative normalized tokens N",
+           ylabel="Vocabulary types V", title="Heaps: 1k, 10k and 100k tokens")
+    ax.set_xticks(n, [f"{tokens / 1000:g}k" for tokens in n])
+    ax.margins(x=0.15, y=0.2)
+    ax.grid(alpha=0.15)
+    ax.legend(fontsize=8, loc="upper left")
+    save_figure(fig, output, "heaps_tokens")
+
+
 def make_figures(output, frequencies, comparison, zipf, points, heaps):
     plt.rcParams.update({"font.size": 10, "axes.spines.top": False, "axes.spines.right": False,
                          "svg.hashsalt": "ai6122-part1-meridian", "savefig.facecolor": "white"})

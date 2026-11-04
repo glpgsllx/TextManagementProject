@@ -15,8 +15,10 @@ import regex
 
 from text_processing import get_tokenizer
 
-from .plots import make_figures
-from .statistics import heaps_points, heaps_statistics, review_order, zipf_statistics
+from .plots import make_figures, make_token_heaps_figure
+from .statistics import (
+    heaps_points, heaps_statistics, heaps_token_points, log_fit, review_order, zipf_statistics,
+)
 from .tokenizer import (
     APOSTROPHES, RULES, WORD_PATTERN, expand_word, is_emoji, is_emoticon,
 )
@@ -198,6 +200,13 @@ def main():
     review_ids = [d["review_id"] for d in documents]
     points = heaps_points(review_ids, token_counts, document_types, args.seed)
     heaps = heaps_statistics(points)
+    tokenizer = get_tokenizer("custom")
+    ordered_reviews = review_order(review_ids, args.seed)
+    token_points = heaps_token_points(
+        tokenizer.tokenize(documents[i]["text"]) for i in ordered_reviews
+    )
+    token_fit = log_fit([p["tokens"] for p in token_points], [p["types"] for p in token_points])
+    token_fit.update({"k": token_fit["coefficient"], "beta": token_fit["slope"]})
     seed_results = []
     all_points = []
     sampling = []
@@ -219,6 +228,8 @@ def main():
         raise AssertionError("A synthetic tokenizer boundary case failed")
     write_csv(output / "tokenizer_comparison.csv", comparison, list(comparison[0]))
     write_csv(output / "heaps_samples.csv", [p for p in points if p["required_checkpoint"]], list(points[0]))
+    token_rows = [{"seed": args.seed, **p} for p in token_points]
+    write_csv(output / "heaps_token_samples.csv", token_rows, list(token_rows[0]))
     law_parameters = [
         {"law": "Zipf", "coefficient": zipf["primary_fit"]["coefficient"],
          "exponent": zipf["primary_fit"]["exponent_s"], "r2_log10": zipf["primary_fit"]["r2_log10"],
@@ -226,6 +237,9 @@ def main():
         {"law": "Heaps", "coefficient": heaps["four_checkpoint_fit"]["k"],
          "exponent": heaps["four_checkpoint_fit"]["beta"], "r2_log10": heaps["four_checkpoint_fit"]["r2_log10"],
          "fit_scope": "10%, 30%, 50%, 100% reviews; N is normalized tokens"},
+        {"law": "Heaps (1k-100k tokens)", "coefficient": token_fit["k"],
+         "exponent": token_fit["beta"], "r2_log10": token_fit["r2_log10"],
+         "fit_scope": f"exact prefixes of 1000, 10000, 100000 normalized tokens; seed {args.seed}"},
     ]
     write_csv(output / "law_parameters.csv", law_parameters, list(law_parameters[0]))
     report_examples = []
@@ -247,6 +261,8 @@ def main():
                    "ambiguous_forms": "preserve 's, 'd and ain't; no POS/sense guessing",
                    "baseline_fairness": "Same reviews, NFC and normalize_tokens function. Expansion requires a complete recognized word token."},
         "tokenizers": comparison, "zipf": zipf, "heaps": heaps,
+        "heaps_token_checkpoints": {"seed": args.seed, "points": token_points, "fit": token_fit,
+                                    "sampling": "Same review order as percentage samples; exact token prefixes may end inside a review."},
         "heaps_seed_sensitivity": {"seeds": [r["seed"] for r in seed_results],
                                    "beta_min": min(r["beta"] for r in seed_results),
                                    "beta_max": max(r["beta"] for r in seed_results)},
@@ -266,9 +282,11 @@ def main():
     dump_json(details / "summary.json", summary)
     dump_json(details / "regex_rules.json", [{"priority": i, "kind": name, "pattern": pattern} for i, (name, pattern) in enumerate(RULES, 1)])
     make_figures(output, frequencies, comparison, zipf, points, heaps)
+    make_token_heaps_figure(output, token_points, token_fit)
     print(json.dumps({"output": str(output.relative_to(ROOT)) if output.is_relative_to(ROOT) else str(output),
                       "tokenizers": comparison, "zipf": zipf["primary_fit"],
-                      "heaps": heaps, "coverage_reviews": {"emoji": coverage["custom_emoji_reviews"], "emoticons": coverage["custom_emoticon_reviews"]},
+                      "heaps": heaps, "heaps_token_checkpoints": {"points": token_points, "fit": token_fit},
+                      "coverage_reviews": {"emoji": coverage["custom_emoji_reviews"], "emoticons": coverage["custom_emoticon_reviews"]},
                       "elapsed_seconds": round(time.monotonic() - started, 1)}, ensure_ascii=False, indent=2))
 
 
