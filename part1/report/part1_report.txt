@@ -28,9 +28,8 @@ $f(r)\propto 1/r$ relationship.
 \end{figure}
 
 \subsubsection{Heaps' Law}
-We ordered reviews by a SHA-256 hash of seed 42 and the review identifier,
-then read their tokens cumulatively. We measured vocabulary size $V$ at
-80 logarithmically spaced token counts $N$, from 1,000 to 3,783,589.
+We measured vocabulary size $V$ at 80 logarithmically spaced token counts
+$N$, from 1,000 to 3,783,589, as tokens were read cumulatively.
 Additional checkpoints marked 1k, 10k, 100k and 1M tokens and the
 10\%, 30\%, 50\% and 100\% review samples. Together these gave 86 observations;
 only the fixed 80-point grid entered the fit.
