@@ -1,0 +1,134 @@
+% Replace the existing Dataset Analysis section, up to \input{part2}, with this text.
+% Upload the two supplied PNG files into the Overleaf project's figures folder.
+\section{Dataset Analysis}
+
+We used the group's Meridian subset of the Yelp Open Dataset~\cite{yelp},
+containing 1,045 businesses and 37,401 reviews. The custom tokenizer and
+normalization described below produced 3,783,589 tokens and 38,120 distinct
+terms. All frequency and vocabulary counts use this normalized text.
+
+\subsection{Zipf's Law and Heaps' Law}
+
+\subsubsection{Zipf's Law}
+We counted each term's occurrences across the corpus, sorted the counts in
+descending order and plotted frequency against rank on logarithmic axes
+(Figure~\ref{p1:zipf}). We fitted $f(r)=Cr^{-s}$ by least squares in log-space
+for ranks 10--10,000, excluding singleton counts. The fitted exponent was
+$s=1.4695$, with $R^2=0.9869$ in log-space. Of the 38,120 terms, 14,964
+(39.3\%) occurred only once. The curve therefore shows a strong long tail,
+although its changing slope and exponent above one depart from the strict
+$f(r)\propto 1/r$ relationship.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/part1_zipf.png}
+  \caption{Term frequency by rank, with the fitted power law and a $1/r$ reference.}
+  \Description{Log-log frequency-rank curve with many rare terms and a steeper tail.}
+  \label{p1:zipf}
+\end{figure}
+
+\subsubsection{Heaps' Law}
+We ordered reviews by a SHA-256 hash of seed 42 and the review identifier,
+then read their tokens cumulatively. We measured vocabulary size $V$ at
+80 logarithmically spaced token counts $N$, from 1,000 to 3,783,589.
+Additional checkpoints marked 1k, 10k, 100k and 1M tokens and the
+10\%, 30\%, 50\% and 100\% review samples. Together these gave 86 observations;
+only the fixed 80-point grid entered the fit.
+
+Least squares on $\log_{10}V=\log_{10}k+\beta\log_{10}N$ gave
+$k=13.973$ and $\beta=0.5356$, with $R^2=0.9922$
+(Figure~\ref{p1:heaps}). Vocabulary grew sublinearly, with an exponent close
+to the typical value of 0.5. To test prediction, we refitted using only grid
+points within 80\% of the full token count. These 77 points ended at
+2,767,159 tokens. The model predicted 48,116 terms at full size, compared
+with 38,120 observed, an overestimate of 26.2\%. The curve bends as growth
+slows, so a close log-space fit across the full range does not ensure an
+accurate vocabulary forecast.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\columnwidth]{figures/part1_heaps.png}
+  \caption{Vocabulary growth, the 80-point Heaps fit and the full-size prediction from the restricted fit.}
+  \Description{Log-log vocabulary growth curve bends below the fitted line at large token counts.}
+  \label{p1:heaps}
+\end{figure}
+
+\subsection{Custom Tokenizer}
+
+\subsubsection{Rules}
+We wrote ordered regex alternatives for complete emoji sequences, ASCII
+emoticons, words with internal apostrophes, numbers, dash separators and
+other non-whitespace characters. Emoji sequences include skin-tone modifiers,
+flags, keycaps and zero-width-joiner combinations. Decimal points and commas
+inside numbers are retained; hyphens separate words. Listing~\ref{p1:scan}
+shows the core scan. The regex library supplies Unicode character
+properties\footnote{\url{https://github.com/mrabarnett/mrab-regex}};
+the token boundaries are defined by our rules.
+
+\begin{lstlisting}[caption={Scanning the ordered regex alternatives.},label={p1:scan},basicstyle=\ttfamily\normalsize]
+TOKEN_PATTERN = regex.compile(
+    "|".join(f"(?P<{name}>{pattern})"
+             for name, pattern in RULES),
+    regex.VERSION1)
+def scan(text):
+    return [m.group() for m in
+            TOKEN_PATTERN.finditer(text)
+            if m.lastgroup != "DASH"]
+\end{lstlisting}
+
+Normalization applies NFC, unifies apostrophes, lowercases lexical tokens,
+expands clear contractions and removes other punctuation-only tokens.
+Ambiguous forms such as \texttt{she's} and \texttt{I'd} are retained.
+Numbers, complete emoji and emoticons remain; stopwords are kept, without
+stemming or lemmatization. Seventeen synthetic boundary cases, including complex emoji, were kept
+separate from corpus statistics. Real emoji-rule matches were 13 text-style
+symbols in six reviews.
+
+\subsubsection{Comparison}
+We compared the custom method with NLTK's Whitespace and WordPunct
+tokenizers~\cite{nltk}, applying the same normalization after each method's
+boundary decisions. Table~\ref{p1:vocab} reports their corpus-wide counts.
+Whitespace retained punctuation-attached variants. WordPunct had the smallest
+vocabulary, but split structures such as contractions and decimal numbers.
+Vocabulary size alone does not measure output quality.
+
+\begin{table}[t]
+  \caption{Corpus counts after shared normalization.}
+  \label{p1:vocab}
+  \centering
+  \begin{tabular}{lrr}
+    \toprule
+    Method & Tokens & Vocabulary \\
+    \midrule
+    Custom & 3,783,589 & 38,120 \\
+    Whitespace & 3,760,186 & 103,566 \\
+    WordPunct & 3,806,763 & 36,361 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+Listing~\ref{p1:outputs} compares the complete outputs for one unedited
+sentence from a real review. A vertical bar separates tokens. Both Custom
+and Whitespace expanded the complete \texttt{don't}. Custom also separated
+the hyphenated words and retained \texttt{49.99} as one number. Whitespace
+kept the hyphenated forms and the final period attached to the number;
+WordPunct split the contraction into \texttt{don} and \texttt{t}, and the
+number into \texttt{49} and \texttt{99}.
+
+\begin{lstlisting}[language={},caption={A complete review sentence and all three normalized outputs.},label={p1:outputs},basicstyle=\ttfamily\normalsize]
+Input:
+They are nice but I don't know anybody by name in there and I signed up for the month-to-month program that gets you four adjustments a month for the low-low price of 49.99.
+
+Custom:
+they | are | nice | but | i | do | not | know | anybody | by | name | in | there | and | i | signed | up | for | the | month | to | month | program | that | gets | you | four | adjustments | a | month | for | the | low | low | price | of | 49.99
+
+Whitespace:
+they | are | nice | but | i | do | not | know | anybody | by | name | in | there | and | i | signed | up | for | the | month-to-month | program | that | gets | you | four | adjustments | a | month | for | the | low-low | price | of | 49.99.
+
+WordPunct:
+they | are | nice | but | i | don | t | know | anybody | by | name | in | there | and | i | signed | up | for | the | month | to | month | program | that | gets | you | four | adjustments | a | month | for | the | low | low | price | of | 49 | 99
+\end{lstlisting}
+
+NumPy~\cite{numpy} was used for fitting and Matplotlib~\cite{matplotlib}
+for plotting. The shared tokenizer is also available to the later project
+parts so that indexing and queries can use the same text processing.
